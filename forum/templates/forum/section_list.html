@@ -1,0 +1,11 @@
+{% extends "forum/base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    <h1>Homepage</h1>
+    {% for section in sections %}
+        <h2>{{ section.title }}</h2>
+        <p>{{ section.description }}</p>
+    {% endfor %}
+{% endblock %}
