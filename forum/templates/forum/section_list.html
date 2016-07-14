@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Homepage</h1>
     {% for section in sections %}
-        <h2>{{ section.title }}</h2>
+        <a href="{%  url 'forum:section_detail' section.title %}">{{ section.title }}</a>
         <p>{{ section.description }}</p>
     {% endfor %}
 {% endblock %}

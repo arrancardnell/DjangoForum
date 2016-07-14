@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.db import models
 
 class MemberManager(models.Manager):
@@ -22,6 +24,37 @@ class Section(models.Model):
                               default='member')
     objects = models.Manager()
     members = MemberManager()
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('forum:section_detail',
+                       args=['self.title'])
+
+
+class Topic(models.Model):
+    STATUS_CHOICES = (
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+        ('hidden', 'Hidden'),
+    )
+    title = models.CharField(max_length=250,
+                             unique=True)
+    description = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250,
+                            unique_for_date='created')
+    created = models.DateTimeField(auto_now_add=True)
+    section = models.ForeignKey(Section,
+                                related_name='forum_topics')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name='forum_topics')
+    status = models.CharField(max_length=250,
+                              choices=STATUS_CHOICES,
+                              default='open')
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return self.title
