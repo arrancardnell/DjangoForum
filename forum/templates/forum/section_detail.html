@@ -5,4 +5,9 @@
 {% block content %}
     <h1>{{ section.title }}</h1>
     <p>{{ section.description }}</p>
+
+    {% for topic in topics %}
+        <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
+        <p>{{ topic.description }}</p>
+    {% endfor %}
 {% endblock %}

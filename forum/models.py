@@ -13,8 +13,7 @@ class Section(models.Model):
         ('member', 'Member'),
         ('admin', 'Admin'),
     )
-    title = models.CharField(max_length=250,
-                             unique=True)
+    title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
                             unique_for_date='created')
@@ -25,12 +24,15 @@ class Section(models.Model):
     objects = models.Manager()
     members = MemberManager()
 
+    class Meta:
+        unique_together = ('title', 'status',)
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('forum:section_detail',
-                       args=['self.title'])
+                       args=['self.slug'])
 
 
 class Topic(models.Model):
@@ -55,6 +57,12 @@ class Topic(models.Model):
 
     class Meta:
         ordering = ['-created']
+        unique_together = ('title', 'section')
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('forum:topic_detail',
+                       args=['self.section.slug',
+                             'self.slug'])
