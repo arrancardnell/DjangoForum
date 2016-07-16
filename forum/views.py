@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from .models import Section, Topic
+from .models import Section, Topic, Post
 
 # section views
 def section_list(request):
@@ -25,7 +25,9 @@ def topic_detail(request, section, topic):
     topic = get_object_or_404(Topic,
                               section=section,
                               slug=topic)
+    posts = Post.objects.filter(topic=topic)
 
     return render(request,
                   'forum/topic_detail.html',
-                  {'topic': topic})
+                  {'topic': topic,
+                   'posts': posts})

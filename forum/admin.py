@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Section, Topic
+from .models import Section, Topic, Post
 
 
 class SectionAdmin(admin.ModelAdmin):
@@ -21,3 +21,12 @@ class TopicAdmin(admin.ModelAdmin):
     ordering = ['title', 'created']
 
 admin.site.register(Topic, TopicAdmin)
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('owner', 'topic', 'created', 'status')
+    list_filter = ('status', 'created')
+    search_fields = ('content',)
+    date_hierarchy = 'created'
+    ordering = ['owner', 'created']
+
+admin.site.register(Post, PostAdmin)

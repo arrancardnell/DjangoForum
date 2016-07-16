@@ -14,7 +14,8 @@ class Section(models.Model):
         ('admin', 'Admin'),
     )
     title = models.CharField(max_length=250)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=250,
+                                   blank=True)
     slug = models.SlugField(max_length=250,
                             unique_for_date='created')
     created = models.DateTimeField(auto_now_add=True)
@@ -43,13 +44,14 @@ class Topic(models.Model):
     )
     title = models.CharField(max_length=250,
                              unique=True)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=250,
+                                   blank=True)
     slug = models.SlugField(max_length=250,
                             unique_for_date='created')
     created = models.DateTimeField(auto_now_add=True)
     section = models.ForeignKey(Section,
                                 related_name='forum_topics')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name='forum_topics')
     status = models.CharField(max_length=250,
                               choices=STATUS_CHOICES,
@@ -66,3 +68,25 @@ class Topic(models.Model):
         return reverse('forum:topic_detail',
                        args=['self.section.slug',
                              'self.slug'])
+
+
+class Post(models.Model):
+    STATUS_CHOICES = (
+        ('active', 'actice'),
+        ('hidden', 'Hidden'),
+    )
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                   related_name='posts_liked',
+                                   blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='topic_posts')
+    topic = models.ForeignKey(Topic,
+                              related_name='topic_posts')
+    status = models.CharField(max_length=250,
+                             choices=STATUS_CHOICES,
+                             default='active')
+
+    class Meta:
+        ordering = ['-created']
