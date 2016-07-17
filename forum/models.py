@@ -53,7 +53,7 @@ class Topic(models.Model):
     section = models.ForeignKey(Section,
                                 related_name='forum_topics')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               related_name='forum_topics')h
+                               related_name='forum_topics')
     status = models.CharField(max_length=250,
                               choices=STATUS_CHOICES,
                               default='open')
