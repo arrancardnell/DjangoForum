@@ -6,6 +6,9 @@
     <h1>{{ topic.title }}</h1>
     <p>{{ topic.description }}</p>
     {% for post in posts %}
-    <p>{{ post.owner }}: {{ post.content }}</p>
+        <p>{{ post.owner }}: {{ post.content }}</p>
     {% endfor %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'forum:add_post' section.slug topic.slug %}"><button>New Post</button></a>
+    {% endif %}
 {% endblock %}

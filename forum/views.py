@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 
-from .forms import LoginForm
+from .forms import LoginForm, AddPostForm
 from .models import Section, Topic, Post
 
 # section views
@@ -33,7 +34,8 @@ def topic_detail(request, section, topic):
 
     return render(request,
                   'forum/topic_detail.html',
-                  {'topic': topic,
+                  {'section': section,
+                   'topic': topic,
                    'posts': posts})
 
 # login views
@@ -55,3 +57,34 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+# post views
+@login_required
+def add_post(request, section, topic):
+    if request.method == 'POST':
+        form = AddPostForm(data=request.POST)
+        if form.is_valid():
+            # form data is valid
+            cd = form.cleaned_data
+            new_post = form.save(commit=False)
+
+            # assign current user and topic to post
+            post_section = get_object_or_404(Section,
+                                             slug=section)
+            post_topic = get_object_or_404(Topic,
+                                           section=post_section,
+                                           slug=topic)
+
+            new_post.owner = request.user
+            new_post.topic = post_topic
+
+            # save the post
+            new_post.save()
+
+            return redirect('forum:topic_detail', section, topic)
+    else:
+        form = AddPostForm
+
+    return render(request,
+                  'forum/add_post.html',
+                  {'form': form})

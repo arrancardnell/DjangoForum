@@ -21,5 +21,7 @@ urlpatterns = [
     # topic views
     url(r'^(?P<section>[-\w]+)/(?P<topic>[-\w]+)/$', views.topic_detail, name='topic_detail'),
 
+    # post views
+    url(r'^(?P<section>[-\w]+)/(?P<topic>[-\w]+)/add_post/$', views.add_post, name='add_post'),
 
 ]
