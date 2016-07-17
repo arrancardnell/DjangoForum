@@ -72,7 +72,7 @@ class Topic(models.Model):
 
 class Post(models.Model):
     STATUS_CHOICES = (
-        ('active', 'actice'),
+        ('active', 'Active'),
         ('hidden', 'Hidden'),
     )
     content = models.TextField()
