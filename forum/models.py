@@ -71,10 +71,10 @@ class Topic(models.Model):
                              'self.slug'])
 
     def save(self, *args, **kwargs):
+        super(Topic, self).save(*args, **kwargs)
         if not self.slug:
             self.slug = slugify(self.title)
-            super(Topic, self).save(*args, **kwargs)
-
+            self.save()
 
 
 class Post(models.Model):
