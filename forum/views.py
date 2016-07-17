@@ -54,4 +54,4 @@ def user_login(request):
                 HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'forum/login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})

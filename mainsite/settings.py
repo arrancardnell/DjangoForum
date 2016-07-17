@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
+from django.core.urlresolvers import reverse_lazy
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,6 +30,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = reverse_lazy('forum:section_list')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')
 
 # Application definition
 

@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<! DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div id="header">
+            <span class="user">
+                {% if request.user.is_authenticated %}
+                    Hello {{ request.user.first_name }},
+                    <a href="{% url 'forum:logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'forum:login' %}">Log-in</a>
+                {% endif %}
+            </span>
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
