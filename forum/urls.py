@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^(?P<section>[-\w]+)/$', views.section_detail, name='section_detail'),
 
     # topic views
+    url(r'^(?P<section>[-\w]+)/add_topic/$', views.add_topic, name='add_topic'),
     url(r'^(?P<section>[-\w]+)/(?P<topic>[-\w]+)/$', views.topic_detail, name='topic_detail'),
 
     # post views

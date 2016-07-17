@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 
 class MemberManager(models.Manager):
     def get_queryset(self):
@@ -68,6 +69,12 @@ class Topic(models.Model):
         return reverse('forum:topic_detail',
                        args=['self.section.slug',
                              'self.slug'])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+            super(Topic, self).save(*args, **kwargs)
+
 
 
 class Post(models.Model):

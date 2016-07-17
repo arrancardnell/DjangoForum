@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Topic
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -10,3 +10,9 @@ class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('content',)
+
+
+class AddTopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ('title', 'description',)

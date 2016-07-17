@@ -10,4 +10,7 @@
         <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
         <p>{{ topic.description }}</p>
     {% endfor %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'forum:add_topic' section.slug %}"><button>New topic</button></a>
+    {% endif %}
 {% endblock %}
