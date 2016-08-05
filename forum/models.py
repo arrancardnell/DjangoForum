@@ -59,7 +59,7 @@ class Topic(models.Model):
                               default='open')
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['created']
         unique_together = ('title', 'section')
 
     def __str__(self):
@@ -96,4 +96,4 @@ class Post(models.Model):
                              default='active')
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['created']
