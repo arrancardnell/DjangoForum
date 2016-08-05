@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render,redirect
 
 
-from .forms import LoginForm, AddPostForm, AddTopicForm
+from .forms import LoginForm, AddPostForm, AddTopicForm, UserRegistrationForm
 from .models import Section, Topic, Post
 
 # section views
@@ -71,6 +71,26 @@ def add_topic(request, section):
     return render(request, 'forum/add_topic.html',
                   {'topic_form': topic_form,
                    'post_form': post_form})
+
+# registration views
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # create a new user object but don't save
+            new_user = user_form.save(commit=False)
+            # set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])
+            # save the user
+            new_user.save()
+            return render(request,
+                          'registration/register_done.html',
+                          {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm
+    return render(request,
+                  'registration/register.html',
+                  {'user_form': user_form})
 
 # login views
 def user_login(request):
