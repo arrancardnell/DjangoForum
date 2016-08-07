@@ -7,8 +7,18 @@
     <p>{{ section.description }}</p>
 
     {% for topic in topics %}
-        <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
-        <p>{{ topic.description }}</p>
+        <div class="section_topic">
+            <div class="topic_info">
+                <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
+                <p>{{ topic.description }}</p>
+            </div>
+            <div class="topic_owner">
+                <p>Created by {{ topic.owner }} ({{ topic.created }})</p>
+            </div>
+            <div class="topic_stats">
+                <p>Replies: 0 | Views: 10</p>
+            </div>
+        </div>
     {% endfor %}
     {% if request.user.is_authenticated %}
         <a href="{% url 'forum:add_topic' section.slug %}"><button>New topic</button></a>
