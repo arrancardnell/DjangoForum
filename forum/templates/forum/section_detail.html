@@ -16,7 +16,9 @@
                 <p>Created by {{ topic.owner }} ({{ topic.created }})</p>
             </div>
             <div class="topic_stats">
-                <p>Replies: 0 | Views: 10</p>
+                {% with topic.topic_posts.count as replies %}
+                    <p>Replies: {{ replies }} | Views: 10</p>
+                {% endwith %}
             </div>
         </div>
     {% endfor %}

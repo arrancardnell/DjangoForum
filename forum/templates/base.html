@@ -12,7 +12,8 @@
                     Hello {{ request.user.username }},
                     <a href="{% url 'forum:logout' %}">Logout</a>
                 {% else %}
-                    <a href="{% url 'forum:login' %}">Log-in</a>
+                    <a href="{% url 'forum:login' %}">Log-in</a> |
+                    <a href="{% url 'forum:register' %}">Sign-up</a>
                 {% endif %}
             </span>
         </div>
