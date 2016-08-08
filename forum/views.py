@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render,redirect
 
@@ -17,11 +18,22 @@ def section_list(request):
 def section_detail(request, section):
     section = get_object_or_404(Section,
                                 slug=section)
-    topics = Topic.objects.filter(section=section)
+    topic_list = Topic.objects.filter(section=section)
+    paginator = Paginator(topic_list, 5)
+    page = request.GET.get('page')
+    try:
+        topics = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer then deliver the first page
+        topics = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range then deliver the last page
+        topics = paginator.page(paginator.num_pages)
 
     return render(request,
                   'forum/section_detail.html',
                   {'section': section,
+                   'page': page,
                    'topics': topics})
 
 # topic views
@@ -31,12 +43,23 @@ def topic_detail(request, section, topic):
     topic = get_object_or_404(Topic,
                               section=section,
                               slug=topic)
-    posts = Post.objects.filter(topic=topic)
+    post_list = Post.objects.filter(topic=topic)
+    paginator = Paginator(post_list, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer then deliver the first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range then deliver the last page
+        posts = paginator.page(paginator.num_pages)
 
     return render(request,
                   'forum/topic_detail.html',
                   {'section': section,
                    'topic': topic,
+                   'page': page,
                    'posts': posts})
 
 @login_required

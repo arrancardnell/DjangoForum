@@ -11,4 +11,5 @@
     {% if request.user.is_authenticated %}
         <a href="{% url 'forum:add_post' section.slug topic.slug %}"><button>New Post</button></a>
     {% endif %}
+    {% include "pagination.html" with page=posts %}
 {% endblock %}
