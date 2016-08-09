@@ -1,3 +1,4 @@
+{% load forum_tags %}
 {% load staticfiles %}
 <! DOCTYPE html>
 <html>
@@ -16,6 +17,14 @@
                     <a href="{% url 'forum:register' %}">Sign-up</a>
                 {% endif %}
             </span>
+        </div>
+        <div id="title">
+            <span class="forum_title">
+                <h1>League of Casual Gentlemen</h1>
+            </span>
+        </div>
+        <div id="jump_menu">
+            <p>{% jump_menu %}</p>
         </div>
         <div id="content">
             {% block content %}
