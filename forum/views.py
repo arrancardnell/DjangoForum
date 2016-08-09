@@ -1,12 +1,14 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Max
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
 
 
 from .forms import LoginForm, AddPostForm, AddTopicForm, UserRegistrationForm
 from .models import Section, Topic, Post
+
 
 # section views
 def section_list(request):
@@ -15,10 +17,14 @@ def section_list(request):
                   'forum/section_list.html',
                   {'sections': sections})
 
+
 def section_detail(request, section):
     section = get_object_or_404(Section,
                                 slug=section)
-    topic_list = Topic.objects.filter(section=section)
+    topic_list = Topic.objects.filter(
+        section=section).annotate(
+        latest_post=Max(
+            'topic_posts__created')).order_by('-latest_post')
     paginator = Paginator(topic_list, 5)
     page = request.GET.get('page')
     try:
@@ -35,6 +41,7 @@ def section_detail(request, section):
                   {'section': section,
                    'page': page,
                    'topics': topics})
+
 
 # topic views
 def topic_detail(request, section, topic):
@@ -61,6 +68,7 @@ def topic_detail(request, section, topic):
                    'topic': topic,
                    'page': page,
                    'posts': posts})
+
 
 @login_required
 def add_topic(request, section):
@@ -95,6 +103,7 @@ def add_topic(request, section):
                   {'topic_form': topic_form,
                    'post_form': post_form})
 
+
 # registration views
 def register(request):
     if request.method == 'POST':
@@ -115,6 +124,7 @@ def register(request):
                   'registration/register.html',
                   {'user_form': user_form})
 
+
 # login views
 def user_login(request):
     if request.method == 'POST':
@@ -134,6 +144,7 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 # post views
 @login_required
