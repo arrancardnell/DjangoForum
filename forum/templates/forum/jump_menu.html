@@ -1,0 +1,5 @@
+<ul class="jump_menu_list">
+    {% for jump, link in jumps.items %}
+        <li class="jump_menu_link"><a href="{{ link }}">{{ jump|capfirst }}</a> ></li>
+    {% endfor %}
+</ul>
