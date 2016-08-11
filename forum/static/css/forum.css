@@ -16,6 +16,10 @@ body {
     float: left;
     margin: 5px;
 }
+.jump_menu_list {
+    padding-left: 0px;
+    margin-left: 0px;
+}
 .jump_menu_link {
     list-style-type: none;
     display: inline;
