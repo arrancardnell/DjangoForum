@@ -3,9 +3,12 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-    <h1>Homepage</h1>
-    {% for section in sections %}
-        <a href="{%  url 'forum:section_detail' section.slug %}">{{ section.title }}</a>
-        <p>{{ section.description }}</p>
-    {% endfor %}
+    <div id="section_list">
+        {% for section in sections %}
+            <div class="section_info">
+                <a href="{%  url 'forum:section_detail' section.slug %}">{{ section.title }}</a>
+                <p>{{ section.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

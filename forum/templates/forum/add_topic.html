@@ -3,11 +3,13 @@
 {% block title %}New topic{% endblock %}
 
 {% block content %}
-    <h1>New topic</h1>
-    <form action="." method="post">
-        {{ topic_form.as_p }}
-        {{ post_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Create topic"></p>
-    </form>
+    <div id="add_topic">
+        <h1>New topic</h1>
+        <form action="." method="post">
+            {{ topic_form.as_p }}
+            {{ post_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Create topic"></p>
+        </form>
+    </div>
 {% endblock %}

@@ -3,27 +3,34 @@
 {% block title %}{{ section.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ section.title }}</h1>
-    <p>{{ section.description }}</p>
-
-    {% for topic in topics %}
-        <div class="section_topic">
-            <div class="topic_info">
-                <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
-                <p>{{ topic.description }}</p>
+    <div id="section_info">
+        <h1>{{ section.title }}</h1>
+        <p>{{ section.description }}</p>
+    </div>
+    <div id="topic_list">
+        {% for topic in topics %}
+            <div class="section_topic">
+                <div class="topic_info">
+                    <a href="{%  url 'forum:topic_detail' section.slug topic.slug %}">{{ topic.title }}</a>
+                    <p>{{ topic.description }}</p>
+                </div>
+                <div class="topic_owner">
+                    <p>Created by {{ topic.owner }} ({{ topic.created }})</p>
+                </div>
+                <div class="topic_stats">
+                    {% with topic.topic_posts.count as replies %}
+                        <p>Replies: {{ replies }} | Views: 10</p>
+                    {% endwith %}
+                </div>
             </div>
-            <div class="topic_owner">
-                <p>Created by {{ topic.owner }} ({{ topic.created }})</p>
-            </div>
-            <div class="topic_stats">
-                {% with topic.topic_posts.count as replies %}
-                    <p>Replies: {{ replies }} | Views: 10</p>
-                {% endwith %}
-            </div>
-        </div>
-    {% endfor %}
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'forum:add_topic' section.slug %}"><button>New topic</button></a>
-    {% endif %}
-    {% include "pagination.html" with page=topics %}
+        {% endfor %}
+    </div>
+    <div id="add_topic_button">
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'forum:add_topic' section.slug %}"><button>New topic</button></a>
+        {% endif %}
+    </div>
+    <div id="pagination">
+        {% include "pagination.html" with page=topics %}
+    </div>
 {% endblock %}

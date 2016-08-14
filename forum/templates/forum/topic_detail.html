@@ -3,13 +3,23 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ topic.title }}</h1>
-    <p>{{ topic.description }}</p>
-    {% for post in posts %}
-        <p>{{ post.owner }}: {{ post.content }}</p>
-    {% endfor %}
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'forum:add_post' section.slug topic.slug %}"><button>New Post</button></a>
-    {% endif %}
-    {% include "pagination.html" with page=posts %}
+    <div id="topic_info">
+        <h1>{{ topic.title }}</h1>
+        <p>{{ topic.description }}</p>
+    </div>
+    <div id="post_list">
+        {% for post in posts %}
+            <div class="post_info">
+                <p>{{ post.owner }}: {{ post.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="add_post_button">
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'forum:add_post' section.slug topic.slug %}"><button>New Post</button></a>
+        {% endif %}
+    </div>
+    <div id="pagination">
+        {% include "pagination.html" with page=posts %}
+    </div>
 {% endblock %}
