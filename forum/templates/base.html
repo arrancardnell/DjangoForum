@@ -34,10 +34,17 @@
         </div>
         <div id="sidebar">
             <h2>Forum Stat's</h2>
-            <h3>Today's Top Poster</h3>
-            <p>Dave</p>
+            <div id="top_three_poster">
+                <h3>Today's Top 3 Posters</h3>
+                {% top_three_posters as top_posters %}
+                <ul class="top_three_posters">
+                    {% for poster in top_posters %}
+                        <li>{{ poster|capfirst }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
             <h3>Hot Topics</h3>
-            <p>Dave's Topc</p>
+            <p>Dave's Topic</p>
         </div>
     </body>
 </html>

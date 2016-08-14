@@ -1,10 +1,21 @@
 from collections import OrderedDict
 from django import template
+from django.contrib.auth.models import User
+from django.db.models import Count, Sum
 
-from ..models import Section, Topic
+import datetime
+
+from ..models import Section, Topic, Post
 
 register = template.Library()
 
+@register.assignment_tag
+def top_three_posters(count=3):
+    today = datetime.date.today()
+    top_three_posters = User.objects.filter(
+        topic_posts__created__gte=today).annotate(
+        posts_today=Count('topic_posts')).order_by('-posts_today', '-username')[:count]
+    return top_three_posters
 
 @register.inclusion_tag('forum/jump_menu.html', takes_context=True)
 def jump_menu(context):

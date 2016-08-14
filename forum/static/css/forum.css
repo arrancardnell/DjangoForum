@@ -31,7 +31,7 @@ body {
 #sidebar {
     position: fixed;
     right: 0%;
-    width:200px;
+    width:230px;
     padding:10px;
     background:#efefef;
     height:300px;
@@ -41,4 +41,7 @@ body {
     padding-top: 5px;
     float: left;
     clear: left;
+}
+.top_three_posters {
+    list-style-type: decimal;
 }
