@@ -42,6 +42,6 @@ body {
     float: left;
     clear: left;
 }
-.top_three_posters {
+.top_three_posters, .top_three_topics {
     list-style-type: decimal;
 }

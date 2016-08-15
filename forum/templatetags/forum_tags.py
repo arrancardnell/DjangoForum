@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from django import template
 from django.contrib.auth.models import User
-from django.db.models import Count, Sum
+from django.db.models import Count, Max
 
 import datetime
 
@@ -16,6 +16,13 @@ def top_three_posters(count=3):
         topic_posts__created__gte=today).annotate(
         posts_today=Count('topic_posts')).order_by('-posts_today', '-username')[:count]
     return top_three_posters
+
+@register.assignment_tag
+def top_three_topics(count=3):
+    top_three_topics = Topic.objects.annotate(
+        total_posts=Count('topic_posts'), latest_post=Max('topic_posts__created')).filter(
+        total_posts__gte=5).order_by('-latest_post', '-total_posts')[:3]
+    return top_three_topics
 
 @register.inclusion_tag('forum/jump_menu.html', takes_context=True)
 def jump_menu(context):
@@ -39,7 +46,7 @@ def jump_menu(context):
         if title:
             jump_menu['jumps'][title[0]] = link
         else:
-            jump_menu['jumps'][jump_name.replace('-', ' ')] = link
+            jump_menu['jumps'][jump_name.replace('-', ' ').replace('_', ' ')] = link
 
         if index == len(path_list)-1:
             jump_menu['final_jump'] = link

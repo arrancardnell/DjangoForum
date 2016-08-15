@@ -43,8 +43,15 @@
                     {% endfor %}
                 </ul>
             </div>
-            <h3>Hot Topics</h3>
-            <p>Dave's Topic</p>
+            <div id="top_three_topics">
+                <h3>Hot Topics</h3>
+                {% top_three_topics as top_topics %}
+                <ul class="top_three_topics">
+                    {% for topic in top_topics %}
+                        <li><a href="{% url 'forum:topic_detail' topic.section.slug topic.slug %}">{{ topic|capfirst }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </body>
 </html>
