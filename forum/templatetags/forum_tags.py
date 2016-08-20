@@ -1,6 +1,8 @@
 from collections import OrderedDict
 from django import template
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.db.models import Count, Max
 
 import datetime
@@ -20,6 +22,17 @@ def total_members():
 @register.simple_tag
 def newest_member():
     return User.objects.latest('date_joined')
+
+@register.assignment_tag
+def online_members():
+    users = User.objects.all().values_list('username', flat=True)
+    online_members = []
+    for user in users:
+        if cache.get('seen_{}'.format(user)):
+            if cache.get('seen_{}'.format(user)) + \
+                    datetime.timedelta(seconds=settings.USER_ONLINE_TIMEOUT) > datetime.datetime.now():
+                online_members.append(user)
+    return online_members
 
 @register.assignment_tag
 def top_three_posters(count=3):

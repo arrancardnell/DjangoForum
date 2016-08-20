@@ -59,7 +59,8 @@
                 <li>Total Members: {% total_members %}</li>
                 <li>Newest Member: {% newest_member %}</li>
                 <li>Total Posts: {% total_posts %}</li>
-                <li>Members currently online: Dave, Arran</li>
+                {% online_members as online_members %}
+                <li>Members Online: {% for member in online_members %}{{ member|capfirst }}{% endfor %}</li>
             </ul>
         </div>
     </body>
