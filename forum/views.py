@@ -6,8 +6,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
 
-from .forms import LoginForm, AddPostForm, AddTopicForm, UserRegistrationForm
-from .models import Section, Topic, Post
+from .forms import AddPostForm, AddTopicForm, LoginForm, ProfileEditForm, \
+    UserEditForm, UserRegistrationForm
+from .models import Section, Topic, Post, Profile
 
 
 # section views
@@ -115,6 +116,8 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             # save the user
             new_user.save()
+            # create the user profile
+            profile = Profile.objects.create(user=new_user)
             return render(request,
                           'registration/register_done.html',
                           {'new_user': new_user})
@@ -176,3 +179,23 @@ def add_post(request, section, topic):
     return render(request,
                   'forum/add_post.html',
                   {'form': form})
+
+# profile views
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 date=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       date=request.POST,
+                                       files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request,
+                  'forum/edit.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form})

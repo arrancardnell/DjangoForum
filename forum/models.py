@@ -1,7 +1,11 @@
-from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
+
+import datetime
+
 
 class MemberManager(models.Manager):
     def get_queryset(self):
@@ -97,3 +101,26 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['created']
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    date_of_birth = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
+
+    def __str__(self):
+        return 'Profile for user {}'.format(self.user.username)
+
+    def last_seen(self):
+        return cache.get('seen_{}'.format(self.user.username))
+
+    def online(self):
+        if self.last_seen():
+            now = datetime.datetime.now()
+            if now > self.last_seen() + datetime.timedelta(
+                seconds=settings.USER_ONLINE_TIMEOUT):
+                return False
+            else:
+                return True
+        else:
+            return False

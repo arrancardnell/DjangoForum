@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'^logout-then-login/$',
         auth_views.logout_then_login, name='logout_then_login'),
 
+    # edit views
+    url(r'^edit/$', views.edit, name='edit'),
+
     # register views
     url(r'^register/$', views.register, name='register'),
 

@@ -9,6 +9,18 @@ from ..models import Section, Topic, Post
 
 register = template.Library()
 
+@register.simple_tag
+def total_posts():
+    return Post.objects.all().count()
+
+@register.simple_tag
+def total_members():
+    return User.objects.all().count()
+
+@register.simple_tag
+def newest_member():
+    return User.objects.latest('date_joined')
+
 @register.assignment_tag
 def top_three_posters(count=3):
     today = datetime.date.today()

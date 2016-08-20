@@ -45,3 +45,9 @@ body {
 .top_three_posters, .top_three_topics {
     list-style-type: decimal;
 }
+.footer {
+    list-style-type: none;
+    display: inline;
+    clear: left;
+    float: left;
+}

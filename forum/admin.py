@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Section, Topic, Post
+from .models import Section, Topic, Post, Profile
 
 
 class SectionAdmin(admin.ModelAdmin):
@@ -30,3 +30,8 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ['owner', 'created']
 
 admin.site.register(Post, PostAdmin)
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date_of_birth', 'photo')
+
+admin.site.register(Profile, ProfileAdmin)

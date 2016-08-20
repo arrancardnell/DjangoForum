@@ -12,6 +12,7 @@
                 {% if request.user.is_authenticated %}
                     Hello {{ request.user.username }},
                     <a href="{% url 'forum:logout' %}">Logout</a>
+                    <a href="{% url 'forum:edit' %}">Edit profile</a>
                 {% else %}
                     <a href="{% url 'forum:login' %}">Log-in</a> |
                     <a href="{% url 'forum:register' %}">Sign-up</a>
@@ -52,6 +53,14 @@
                     {% endfor %}
                 </ul>
             </div>
+        </div>
+        <div id="footer">
+            <ul class="footer">
+                <li>Total Members: {% total_members %}</li>
+                <li>Newest Member: {% newest_member %}</li>
+                <li>Total Posts: {% total_posts %}</li>
+                <li>Members currently online: Dave, Arran</li>
+            </ul>
         </div>
     </body>
 </html>
