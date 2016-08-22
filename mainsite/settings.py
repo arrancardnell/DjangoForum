@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'default-cache'
+        'LOCATION': 'default_cache'
     }
 }
 

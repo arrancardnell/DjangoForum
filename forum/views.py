@@ -22,6 +22,8 @@ def section_list(request):
 def section_detail(request, section):
     section = get_object_or_404(Section,
                                 slug=section)
+    # annotate each topic with its latest post and order the topics
+    # by most recent post
     topic_list = Topic.objects.filter(
         section=section).annotate(
         latest_post=Max(

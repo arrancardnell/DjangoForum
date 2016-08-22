@@ -60,7 +60,14 @@
                 <li>Newest Member: {% newest_member %}</li>
                 <li>Total Posts: {% total_posts %}</li>
                 {% online_members as online_members %}
-                <li>Members Online: {% for member in online_members %}{{ member|capfirst }}{% endfor %}</li>
+                <li>Members Online:
+                    {% for member in online_members %}
+                        {% if forloop.last %}
+                            {{ member }}
+                        {% else %}
+                            {{ member }},
+                        {% endif %}
+                    {% endfor %}</li>
             </ul>
         </div>
     </body>
