@@ -48,8 +48,7 @@ body {
 .footer {
     list-style-type: none;
     clear: left;
-    float: left;
-    padding: none;
+    padding: 0px;
     margin: 0px auto;
     text-align: center;
 }
