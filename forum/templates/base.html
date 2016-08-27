@@ -7,68 +7,70 @@
         <link href="{% static  'css/forum.css' %}" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <div id="header">
+	<div id="header">
             <span class="user">
                 {% if request.user.is_authenticated %}
-                    Hello {{ request.user.username }},
-                    <a href="{% url 'forum:logout' %}">Logout</a>
-                    <a href="{% url 'forum:edit' %}">Edit profile</a>
+                Hello {{ request.user.username }},
+                <a href="{% url 'forum:logout' %}">Logout</a>
+                <a href="{% url 'forum:edit' %}">Edit profile</a>
                 {% else %}
-                    <a href="{% url 'forum:login' %}">Log-in</a> |
-                    <a href="{% url 'forum:register' %}">Sign-up</a>
+                <a href="{% url 'forum:login' %}">Log-in</a> |
+                <a href="{% url 'forum:register' %}">Sign-up</a>
                 {% endif %}
             </span>
         </div>
-        <div id="title">
-            <span class="forum_title">
-                <h1>Home</h1>
-            </span>
-        </div>
-        <div id="jump_menu">
-            <span class="jump_menu">
-                {% jump_menu %}
-            </span>
-        </div>
-        <div id="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <div id="sidebar">
-            <h2>Forum Stat's</h2>
-            <div id="top_three_poster">
-                <h3>Today's Top 3 Posters</h3>
-                {% top_three_posters as top_posters %}
-                <ul class="top_three_posters">
-                    {% for poster in top_posters %}
-                        <li>{{ poster|capfirst }}</li>
-                    {% endfor %}
+        <div id="wrapper">
+            <div id="title">
+                <span class="forum_title">
+                    <h1>Home</h1>
+                </span>
+            </div>
+            <div id="jump_menu">
+                <span class="jump_menu">
+                    {% jump_menu %}
+                </span>
+            </div>
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div id="sidebar">
+                <h2>Forum Stat's</h2>
+                <div id="top_three_poster">
+                    <h3>Today's Top 3 Posters</h3>
+                    {% top_three_posters as top_posters %}
+                    <ul class="top_three_posters">
+                        {% for poster in top_posters %}
+                            <li>{{ poster|capfirst }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="top_three_topics">
+                    <h3>Hot Topics</h3>
+                    {% top_three_topics as top_topics %}
+                    <ul class="top_three_topics">
+                        {% for topic in top_topics %}
+                            <li><a href="{% url 'forum:topic_detail' topic.section.slug topic.slug %}">{{ topic|capfirst }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div id="footer">
+                <ul class="footer">
+                    <li>Total Members: {% total_members %}</li>
+                    <li>Newest Member: {% newest_member %}</li>
+                    <li>Total Posts: {% total_posts %}</li>
+                    {% online_members as online_members %}
+                    <li>Members Online:
+                        {% for member in online_members %}
+                            {% if forloop.last %}
+                                {{ member }}
+                            {% else %}
+                                {{ member }},
+                            {% endif %}
+                        {% endfor %}</li>
                 </ul>
             </div>
-            <div id="top_three_topics">
-                <h3>Hot Topics</h3>
-                {% top_three_topics as top_topics %}
-                <ul class="top_three_topics">
-                    {% for topic in top_topics %}
-                        <li><a href="{% url 'forum:topic_detail' topic.section.slug topic.slug %}">{{ topic|capfirst }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="footer">
-            <ul class="footer">
-                <li>Total Members: {% total_members %}</li>
-                <li>Newest Member: {% newest_member %}</li>
-                <li>Total Posts: {% total_posts %}</li>
-                {% online_members as online_members %}
-                <li>Members Online:
-                    {% for member in online_members %}
-                        {% if forloop.last %}
-                            {{ member }}
-                        {% else %}
-                            {{ member }},
-                        {% endif %}
-                    {% endfor %}</li>
-            </ul>
-        </div>
+        </div><!--wrapper-->
     </body>
 </html>

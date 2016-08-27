@@ -1,12 +1,43 @@
-body {
-    width: 960px;
-    margin: 0 auto;
+body{
+    text-align: center;
+    margin: 0px;
+    border: 1px solid transparent; /*Needed thank to margin collapsing when we add margin-top to wrapper, for more
+    details see http://stackoverflow.com/questions/1762539/margin-on-child-element-moves-parent-element ... it makes
+    little sense but adding a transparent border works. Take away the border to see what happens, if you bloody dare!
+    */
 }
+
+#header{
+    position: fixed;
+    width: 99.5%; /*We do 99.5% because the remaining 0.5% is added on by padding-right*/
+    height: 25px; /*Best do this by pixels rather than percentage, if we do it by percentage then it will take up more
+    of the screen depending on how high body was (i.e. how far you could scroll down), doesn't make much sense...*/
+    z-index: 100;
+    padding-right: 0.5%;
+    background-color: black;
+    text-align: right;
+    color: gold;
+}
+
+#header a{
+    color: gold;
+    font-size: 80%;
+}
+
+#wrapper{
+    width: 730px;
+    margin: 0px auto;
+    margin-top: 25px; /*So that the main content is underneath the header. Make sure this is the same as height of #header*/
+}
+
 #content {
     float: left;
     overflow: auto;
-    height: 100%
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
 }
+
 .section_topic {
     clear: left;
 }
@@ -45,6 +76,8 @@ body {
 .top_three_posters, .top_three_topics {
     list-style-type: decimal;
 }
+
+
 .footer {
     list-style-type: none;
     clear: left;
@@ -54,15 +87,14 @@ body {
 }
 
 .footer li {
-
-display: inline;
-border-right: 2px solid black;
-padding: 0px 10px;
-
+    display: inline;
+    border-right: 2px solid black;
+    padding: 0px 10px;
 }
 
 .footer li:last-child{
-
-border-right: none;
-
+    border-right: none;
 }
+
+
+
