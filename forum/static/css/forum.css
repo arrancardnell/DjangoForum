@@ -1,3 +1,7 @@
+a{
+    color: gold;
+}
+
 body{
     text-align: center;
     margin: 0px;
@@ -9,64 +13,47 @@ body{
 
 #header{
     position: fixed;
+    top: 0px;
+    left: 0px;
     width: 99.5%; /*We do 99.5% because the remaining 0.5% is added on by padding-right*/
     height: 25px;
     z-index: 100;
     padding-right: 0.5%;
     background-color: black;
     text-align: right;
+    font-size: 80%;
     color: gold;
+    line-height: 25px; /*used for centering single lines, see http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div*/
 }
 
 #header a{
-    color: gold;
-    font-size: 80%;
+    padding: 0px 3px;
 }
 
 #wrapper{
-    width: 730px;
+    width: 960px;
     margin: 0px auto;
-    margin-top: 50px; /*So that the main content is underneath the header. Make sure this is the same as height of #header*/
+    margin-top: 30px; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
+    background-color: #232323;
+    color: white;
 }
 
 #title{ 
-    border: 1px solid black;
-    width: 100%;
+    border: 1px solid #151515;
+    width: calc(100%-2px); /*Why this calculation? I'll tell you why! Because if you put width 100% then #title takes up 960px, but then
+    it has a 2 pixel border so it takes up 962px. This would mean the #title div would overshoot wrapper's right edge by two pixels. You wouldn't
+    notice this until you put a background-color to #wrapper and saw a pixel wide white gap. Go on, put "width: 100%" if you want to see what I'm
+    on about. */
     height: 100px;
 }
 
 #jump_menu{
-    width: 100%;
-    border: 1px solid black;
+    border: 1px solid #151515;
+    width: calc(100%-2px);
     height: 30px;
-    line-height: 30px; /*used for centering single lines, see http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div*/
-}
-
-#chat{
-    width: 100%;
-    border: 1px solid black;
-    height: 175px;
-}
-
-#content {
-    overflow: auto;
-    height: 700px;
-    width: 100%;
-    border: 1px solid black;
-}
-
-.section_topic {
-    clear: left;
-}
-#section_info {
-    float: left;
-}
-.topic_info, .topic_owner, .topic_stats {
-    background-color: #efefef;
-    padding: 5px 5px 5px 5px;
-    width: 230px;
-    float: left;
-    margin: 5px 5px 5px 0px;
+    line-height: 30px; /*used for centering single lines*/
+    background-color: #232323;
+    color: gold;
 }
 .jump_menu_list {
     padding-left: 0px;
@@ -76,28 +63,146 @@ body{
     list-style-type: none;
     display: inline;
 }
+
+
+#chat{
+    width: calc(100%-2px);
+    border: 1px solid #151515;
+    height: 175px;
+}
+
+#content {
+    overflow: auto;
+    height: 700px;
+    width: calc(100%-2px);
+    border: 1px solid #151515;
+    border-top: none; /*Otherwise too thick border with section_info stuff too*/
+}
+
+#section_list{
+    border-bottom: 1px solid #151515;
+
+}
+#section_info, #topic_info {
+    width: calc(100%-2px);
+    background-color: #232323;
+    border-width: 3px 1px 1px 1px;
+    border-style: solid;
+    border-color: #151515;
+    color: white;
+    font-size: 80%;
+}
+
+#section_info h1, #topic_info h1{
+    margin: 0px;
+    padding: 10px 0px 0px 0px;
+}
+
+#topic_info p, #section_info p{
+    margin: 0px;
+    padding: 5px 0px 10px 0px;
+}
+
+.section_topic {
+    clear: left;
+    overflow: auto;
+}
+.section_info{
+    color: grey;
+    background-color: #232323;
+    border: 1px solid #151515;
+    text-align: left;
+    height: 75px;
+    padding: 5px 5px 5px 5px;
+}
+
+.section_info p{
+    margin: 0px;
+    font-size: 80%;
+    padding-top: 5px;
+}
+
+#topic_list{
+    border-bottom: 1px solid #151515;
+}
+.topic_info, .topic_owner, .topic_stats {
+    background-color: #232323;
+    border: 1px solid #151515;
+    height: 50px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+    text-align: center;
+    color: grey;
+}
+
+.topic_info {
+    width: 474px;
+    text-align: left;
+}
+.topic_owner{
+    width: 300px;
+}
+
+.topic_stats{
+    width: 148px; /*Width of topic_info, owner and stats must add up to content wrapper width which is 960px. BUT MAKE SURE TO ACCOUNT FOR PADDING/MARGIN/BORDER*/
+}
+.topic_info p{
+    margin: 0px;
+    font-size: 80%;
+    padding-top: 5px;
+}
+.topic_owner p, .topic_stats p{
+    margin: 0px;
+    font-size: 90%;
+}
+
+#post_list{
+    border-bottom: 1px solid #151515;
+}
+
+.post_info{
+    border: 1px solid #151515;
+    text-align: left;
+    padding-left: 10px
+}
+
+
+
 #sidebar {
     position: fixed;
     top: 200px;
     right: 0%;
-    width:230px;
-    padding:10px;
-    background:#efefef;
+    width:200px;
+    padding: 20px 20px 20px 20px;
+    background:#232323;
     height:500px;
     border: 1px solid black;
-}
-#pagination, #add_topic_button {
-    margin-top: 5px;
-    padding-top: 5px;
-    float: left;
-    clear: left;
-}
-.top_three_posters, .top_three_topics {
-    list-style-type: decimal;
+    text-align: left;
 }
 
+#sidebar h2{
+    margin: 0px;
+}
+
+.top_three_posters, .top_three_topics {
+    list-style: decimal inside;
+    text-align: left;
+    padding-left: 0px;
+}
+
+
+
+#pagination, #add_topic_button, #add_post_button {
+    margin: 5px 5px 0px 0px;
+    padding-top: 5px;
+    float: right;
+    clear: right;
+}
+
+
+
 #footer{
-    width: 100%;
+    width: calc(100%-2px);
     border: 1px solid black;
 }
 

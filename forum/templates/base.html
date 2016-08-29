@@ -8,18 +8,18 @@
     </head>
     <body>
 	<div id="header">
-            {% if request.user.is_authenticated %}
-            Hello {{ request.user.username }},
-            <a href="{% url 'forum:logout' %}">Logout</a>
-            <a href="{% url 'forum:edit' %}">Edit profile</a>
-            {% else %}
-            <a href="{% url 'forum:login' %}">Log-in</a> |
-            <a href="{% url 'forum:register' %}">Sign-up</a>
-            {% endif %}
+	    {% if request.user.is_authenticated %}
+	    Welcome {{ request.user.username }}
+	    <a href="{% url 'forum:logout' %}">[Logout]</a> |
+	    <a href="{% url 'forum:edit' %}">[Edit profile]</a>
+	    {% else %}
+	    <a href="{% url 'forum:login' %}">[Log-in]</a> |
+	    <a href="{% url 'forum:register' %}">[Sign-up]</a>
+	    {% endif %}
         </div>
         <div id="wrapper">
             <div id="title">
-                <h1>Home</h1>
+                <h1>League of Casuals!</h1>
             </div>
             <div id="jump_menu">
                 {% jump_menu %}
