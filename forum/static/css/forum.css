@@ -3,8 +3,6 @@ a{
 }
 
 
-
-
 body{
     text-align: center;
     margin: 0px;
@@ -12,6 +10,7 @@ body{
     details see http://stackoverflow.com/questions/1762539/margin-on-child-element-moves-parent-element ... it makes
     little sense but adding a transparent border works. Take away the border to see what happens, if you bloody dare!
     */
+    background-color: #303030;
 }
 
 
@@ -89,11 +88,10 @@ body{
 
 
 #chat{
-    border-width: 1px 2px 1px 2px;
-    border-style: solid; 
-    border-color: #151515;
-    border-top: transparent;
-    border-bottom: transparent;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid #151515;
+    border-right: 1px solid #151515;
     height: 175px;
 }
 
