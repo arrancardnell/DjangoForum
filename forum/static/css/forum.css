@@ -2,6 +2,9 @@ a{
     color: gold;
 }
 
+
+
+
 body{
     text-align: center;
     margin: 0px;
@@ -10,6 +13,10 @@ body{
     little sense but adding a transparent border works. Take away the border to see what happens, if you bloody dare!
     */
 }
+
+
+
+
 
 #header{
     position: fixed;
@@ -30,26 +37,37 @@ body{
     padding: 0px 3px;
 }
 
+
+
+
+
 #wrapper{
     width: 960px;
     margin: 0px auto;
     margin-top: 30px; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
-    background-color: #232323;
+    background-color: #202020;
     color: white;
 }
 
+
+
+
+
+
 #title{ 
     border: 1px solid #151515;
-    width: calc(100%-2px); /*Why this calculation? I'll tell you why! Because if you put width 100% then #title takes up 960px, but then
-    it has a 2 pixel border so it takes up 962px. This would mean the #title div would overshoot wrapper's right edge by two pixels. You wouldn't
-    notice this until you put a background-color to #wrapper and saw a pixel wide white gap. Go on, put "width: 100%" if you want to see what I'm
-    on about. */
+    border-bottom: none;
     height: 100px;
 }
 
+
+
+
+
+
+
 #jump_menu{
-    border: 1px solid #151515;
-    width: calc(100%-2px);
+    border: 2px groove #151515;
     height: 30px;
     line-height: 30px; /*used for centering single lines*/
     background-color: #232323;
@@ -65,43 +83,36 @@ body{
 }
 
 
+
+
+
+
+
 #chat{
-    width: calc(100%-2px);
-    border: 1px solid #151515;
+    border-width: 1px 2px 1px 2px;
+    border-style: solid; 
+    border-color: #151515;
+    border-top: transparent;
+    border-bottom: transparent;
     height: 175px;
 }
+
+
+
+
 
 #content {
     overflow: auto;
     height: 700px;
     width: calc(100%-2px);
     border: 1px solid #151515;
-    border-top: none; /*Otherwise too thick border with section_info stuff too*/
 }
 
-#section_list{
-    border-bottom: 1px solid #151515;
 
-}
-#section_info, #topic_info {
-    width: calc(100%-2px);
-    background-color: #232323;
-    border-width: 3px 1px 1px 1px;
-    border-style: solid;
-    border-color: #151515;
-    color: white;
-    font-size: 80%;
-}
 
-#section_info h1, #topic_info h1{
-    margin: 0px;
-    padding: 10px 0px 0px 0px;
-}
 
-#topic_info p, #section_info p{
-    margin: 0px;
-    padding: 5px 0px 10px 0px;
-}
+
+
 
 .section_topic {
     clear: left;
@@ -122,21 +133,60 @@ body{
     padding-top: 5px;
 }
 
+
+
+
+
+
+
+
+#section_list{
+    border-bottom: 1px solid #151515;
+
+}
+#section_info, #topic_info {
+    background-color: #232323;
+    border-width: 2px 2px 2px 2px;
+    border-style: groove;
+    border-color: #111111;
+    color: white;
+    font-size: 80%;
+    text-align: left;
+    padding-left: 10px
+}
+
+#section_info h1, #topic_info h1{
+    margin: 0px;
+    padding: 10px 0px 0px 0px;
+}
+
+#topic_info p, #section_info p{
+    margin: 0px;
+    padding: 5px 0px 10px 0px;
+}
+
+
+
+
+
+
+
 #topic_list{
     border-bottom: 1px solid #151515;
+    background-color: #232323;
 }
 .topic_info, .topic_owner, .topic_stats {
-    background-color: #232323;
+
     border: 1px solid #151515;
     height: 50px;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
     float: left;
     text-align: center;
     color: grey;
 }
 
 .topic_info {
-    width: 474px;
+    width: 444px;
     text-align: left;
 }
 .topic_owner{
@@ -144,7 +194,7 @@ body{
 }
 
 .topic_stats{
-    width: 148px; /*Width of topic_info, owner and stats must add up to content wrapper width which is 960px. BUT MAKE SURE TO ACCOUNT FOR PADDING/MARGIN/BORDER*/
+    width: 148px; /*Adjust until it takes up entire width, same for topic_info or topic_owner*/
 }
 .topic_info p{
     margin: 0px;
@@ -156,15 +206,42 @@ body{
     font-size: 90%;
 }
 
+
+
+
+
 #post_list{
-    border-bottom: 1px solid #151515;
+    border: 1px solid #151515;
+    border-top: none;
+    
 }
 
 .post_info{
-    border: 1px solid #151515;
     text-align: left;
-    padding-left: 10px
+    overflow: auto;
 }
+
+.poster{
+    padding: 3px 5px;
+    background-color: grey;
+    border-top: 1px solid #151515;
+    border-bottom: 1px solid #151515;
+    text-align: left;
+    clear: left;
+    font-weight: bold;
+}
+
+.post_content{
+    color: black;
+    clear: left;
+    padding: 10px;
+    min-height: 35px;
+    background-color: #D6D6D6;
+}
+
+
+
+
 
 
 
@@ -192,6 +269,9 @@ body{
 
 
 
+
+
+
 #pagination, #add_topic_button, #add_post_button {
     margin: 5px 5px 0px 0px;
     padding-top: 5px;
@@ -201,9 +281,15 @@ body{
 
 
 
+
+
+
+
+
+
 #footer{
-    width: calc(100%-2px);
     border: 1px solid black;
+    background-color: #232323;
 }
 
 .footer {
