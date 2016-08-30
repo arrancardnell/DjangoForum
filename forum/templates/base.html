@@ -53,20 +53,21 @@
                 </div>
             </div>
             <div id="footer">
-                <ul class="footer">
-                    <li>Total Members: {% total_members %}</li>
-                    <li>Newest Member: {% newest_member %}</li>
-                    <li>Total Posts: {% total_posts %}</li>
+                <div id="online_members">
                     {% online_members as online_members %}
-                    <li>Members Online:
+                        Members Online:
                         {% for member in online_members %}
                             {% if forloop.last %}
                                 {{ member }}
                             {% else %}
                                 {{ member }},
                             {% endif %}
-                        {% endfor %}</li>
-                </ul>
+                        {% endfor %}
+                </div>
+                <div id="board_statistics">
+                    Total Members: {% total_members %} (Newest Member: {% newest_member %}) <br/>
+		    Total Forum Posts: {% total_posts %}
+                </div>
             </div>
         </div><!--wrapper-->
     </body>
