@@ -25,7 +25,10 @@ body{
     height: 25px;
     z-index: 100;
     padding-right: 0.5%;
-    background-color: black;
+    background-color: #1B1B1B;
+    border-width: 1px 2px 2px 2px;
+    border-style: solid;
+    border-color: #151515;
     text-align: right;
     font-size: 80%;
     color: gold;
@@ -45,7 +48,7 @@ body{
     margin: 0px auto;
     margin-top: 30px; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
     background-color: #202020;
-    color: white;
+    color: white; 
 }
 
 
@@ -103,7 +106,9 @@ body{
     overflow: auto;
     height: 700px;
     width: calc(100%-2px);
-    border: 1px solid #151515;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: #151515;
 }
 
 
@@ -115,11 +120,16 @@ body{
 .section_topic {
     clear: left;
     overflow: auto;
+    border-width: 0px 1px 0px 1px;
+    border-style: solid;
+    border-color: #151515;
 }
 .section_info{
     color: grey;
     background-color: #2B2B2B;
-    border: 1px solid #151515;
+    border-width: 1px 2px 1px 2px;
+    border-style: solid;
+    border-color: #151515;
     text-align: left;
     height: 75px;
     padding: 5px 5px 5px 5px;
@@ -209,8 +219,9 @@ body{
 
 
 #post_list{
-    border: 1px solid #151515;
-    border-top: none;
+    border-width: 0px 2px 2px 2px;
+    border-style: solid;
+    border-color: #151515;
     
 }
 
@@ -251,7 +262,7 @@ body{
     padding: 20px 20px 20px 20px;
     background:#232323;
     height:500px;
-    border: 1px solid #151515;
+    border: 2px groove #151515;
     text-align: left;
 }
 
@@ -275,6 +286,7 @@ body{
     padding-top: 5px;
     float: right;
     clear: right;
+    font-size: 80%;
 }
 
 
