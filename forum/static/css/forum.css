@@ -20,11 +20,11 @@ body{
 #header{
     position: fixed;
     top: 0px;
-    left: 0px;
-    width: 99.5%; /*We do 99.5% because the remaining 0.5% is added on by padding-right*/
+    right: 0px;
     height: 25px;
     z-index: 100;
     padding-right: 0.5%;
+    padding-left: 0.5%;
     background-color: #1B1B1B;
     border-width: 1px 2px 2px 2px;
     border-style: solid;
@@ -44,8 +44,8 @@ body{
 
 
 #wrapper{
-    width: 960px;
-    margin: 0px auto;
+    width: 80%;
+    margin: 0% 1%;
     margin-top: 30px; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
     background-color: #202020;
     color: white; 
@@ -104,7 +104,7 @@ body{
 
 #content {
     overflow: auto;
-    height: 700px;
+    min-height: 430px;
     width: calc(100%-2px);
     border-width: 1px 0px 1px 0px;
     border-style: solid;
@@ -194,15 +194,15 @@ body{
 }
 
 .topic_info {
-    width: 444px;
+    width: calc(40% - 22px); /* 1px borders on both sides + 10px padding on both sides = 22px */
     text-align: left;
 }
 .topic_owner{
-    width: 300px;
+    width: calc(30% - 22px);
 }
 
 .topic_stats{
-    width: 148px; /*Adjust until it takes up entire width, same for topic_info or topic_owner*/
+    width: calc(30% - 22px); 
 }
 .topic_info p{
     margin: 0px;
@@ -256,12 +256,12 @@ body{
 
 #sidebar {
     position: fixed;
-    top: 200px;
+    top: 30px;
     right: 0%;
-    width:200px;
+    width:calc(18% - 42px);
     padding: 20px 20px 20px 20px;
     background:#232323;
-    height:500px;
+    height:89.5%;
     border: 2px groove #151515;
     text-align: left;
 }
