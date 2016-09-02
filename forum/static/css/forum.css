@@ -1,3 +1,5 @@
+/* At 16pt, 1px = 0.0625em*/
+
 a{
     color: gold;
 }
@@ -6,10 +8,6 @@ a{
 body{
     text-align: center;
     margin: 0px;
-    border: 1px solid transparent; /*Needed thank to margin collapsing when we add margin-top to wrapper, for more
-    details see http://stackoverflow.com/questions/1762539/margin-on-child-element-moves-parent-element ... it makes
-    little sense but adding a transparent border works. Take away the border to see what happens, if you bloody dare!
-    */
     background-color: #303030;
 }
 
@@ -21,22 +19,19 @@ body{
     position: fixed;
     top: 0px;
     right: 0px;
-    height: 25px;
     z-index: 100;
-    padding-right: 0.5%;
-    padding-left: 0.5%;
+    padding: 0.3em 0.8em;
     background-color: #1B1B1B;
-    border-width: 1px 2px 2px 2px;
+    border-width: 0.075em 0.16em 0.16em 0.16em;
     border-style: solid;
     border-color: #151515;
     text-align: right;
     font-size: 80%;
     color: gold;
-    line-height: 25px; /*used for centering single lines, see http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div*/
 }
 
 #header a{
-    padding: 0px 3px;
+    padding: 0em 0.3em;
 }
 
 
@@ -46,7 +41,7 @@ body{
 #wrapper{
     width: 80%;
     margin: 0% 1%;
-    margin-top: 30px; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
+    margin-top: 2em; /*So that the main content is underneath the header. Make sure this is at least the same as height of #header*/
     background-color: #202020;
     color: white; 
 }
@@ -57,9 +52,9 @@ body{
 
 
 #title{ 
-    border: 1px solid #151515;
+    border: 0.06em solid #151515;
     border-bottom: none;
-    height: 100px;
+    height: 6em;
 }
 
 
@@ -69,9 +64,8 @@ body{
 
 
 #jump_menu{
-    border: 2px groove #151515;
-    height: 30px;
-    line-height: 30px; /*used for centering single lines*/
+    border: 0.125em groove #151515;
+    padding: 0.5em 0em;
     background-color: #2B2B2B;
     color: gold;
 }
@@ -91,11 +85,11 @@ body{
 
 
 #chat{
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    border-left: 1px solid #151515;
-    border-right: 1px solid #151515;
-    height: 175px;
+    border-top: 0.06em solid transparent;
+    border-bottom: 0.06em solid transparent;
+    border-left: 0.06em solid #151515;
+    border-right: 0.06em solid #151515;
+    height: 10em;
 }
 
 
@@ -104,44 +98,12 @@ body{
 
 #content {
     overflow: auto;
-    min-height: 430px;
-    width: calc(100%-2px);
-    border-width: 1px 0px 1px 0px;
+    min-height: 28em;
+    width: 100%;
+    border-width: 0.06em 0em 0.06em 0em;
     border-style: solid;
     border-color: #151515;
 }
-
-
-
-
-
-
-
-.section_topic {
-    clear: left;
-    overflow: auto;
-    border-width: 0px 1px 0px 1px;
-    border-style: solid;
-    border-color: #151515;
-}
-.section_info{
-    color: grey;
-    background-color: #2B2B2B;
-    border-width: 1px 2px 1px 2px;
-    border-style: solid;
-    border-color: #151515;
-    text-align: left;
-    height: 75px;
-    padding: 5px 5px 5px 5px;
-}
-
-.section_info p{
-    margin: 0px;
-    font-size: 80%;
-    padding-top: 5px;
-}
-
-
 
 
 
@@ -149,30 +111,56 @@ body{
 
 
 #section_list{
-    border-bottom: 1px solid #151515;
+    border-bottom: 0.06em solid #151515;
 
 }
+.section_info{
+    color: grey;
+    background-color: #2B2B2B;
+    border-width: 0.06em 0.125em 0.06em 0.125em;
+    border-style: solid;
+    border-color: #151515;
+    text-align: left;
+    height: 4.5em;
+    padding: 0.3em;
+}
+
+.section_info p{
+    margin: 0px;
+    font-size: 80%;
+    padding-top: 0.3em;
+}
+
+
+
+
+
+
+
+
+
+
 #section_info, #topic_info {
     background-color: #2B2B2B;
-    border-width: 2px 2px 2px 2px;
+    border-width: 0.16em;
     border-style: groove;
     border-color: #111111;
     color: white;
     font-size: 80%;
     text-align: left;
-    padding-left: 10px
+    padding: 0.7em 0em 1em 0.7em;
 }
 
 #section_info h1, #topic_info h1{
     margin: 0px;
-    padding: 10px 0px 0px 0px;
+    padding-bottom: 0.3em;
+
 }
 
-#topic_info p, #section_info p{
+#section_info p, #topic_info p{
     margin: 0px;
-    padding: 5px 0px 10px 0px;
-}
 
+}
 
 
 
@@ -180,34 +168,41 @@ body{
 
 
 #topic_list{
-    border-bottom: 1px solid #151515;
+    border-bottom: 0.0625em solid #151515;
     background-color: #2B2B2B;
+}
+.section_topic {
+    clear: left;
+    overflow: auto;
+    border-width: 0em 0.0625em;
+    border-style: solid;
+    border-color: #151515;
 }
 .topic_info, .topic_owner, .topic_stats {
 
-    border: 1px solid #151515;
-    height: 50px;
-    padding: 5px 10px 5px 10px;
+    border: 0.0625em solid #151515;
+    height: 3em;
+    padding: 0.3125em 0.625em;
     float: left;
     text-align: center;
     color: grey;
 }
 
 .topic_info {
-    width: calc(40% - 22px); /* 1px borders on both sides + 10px padding on both sides = 22px */
+    width: calc(60% - 1.375em); /* 0.625 borders on both sides + 0.625em padding on both sides */
     text-align: left;
 }
 .topic_owner{
-    width: calc(30% - 22px);
+    width: calc(25% - 1.375em);
 }
 
 .topic_stats{
-    width: calc(30% - 22px); 
+    width: calc(15% - 1.375em); 
 }
 .topic_info p{
     margin: 0px;
     font-size: 80%;
-    padding-top: 5px;
+    padding-top: 0.375em;
 }
 .topic_owner p, .topic_stats p{
     margin: 0px;
@@ -219,7 +214,7 @@ body{
 
 
 #post_list{
-    border-width: 0px 2px 2px 2px;
+    border-width: 0em 0.125em 0.125em 0.125em;
     border-style: solid;
     border-color: #151515;
     
@@ -231,10 +226,10 @@ body{
 }
 
 .poster{
-    padding: 3px 5px;
+    padding: 0.18em 0.3em;
     background-color: grey;
-    border-top: 1px solid #151515;
-    border-bottom: 1px solid #151515;
+    border-top: 0.0625em solid #151515;
+    border-bottom: 0.0625em solid #151515;
     text-align: left;
     clear: left;
     font-weight: bold;
@@ -243,8 +238,8 @@ body{
 .post_content{
     color: black;
     clear: left;
-    padding: 10px;
-    min-height: 35px;
+    padding: 0.6em;
+    min-height: 2.1em;
     background-color: #D6D6D6;
 }
 
@@ -256,13 +251,13 @@ body{
 
 #sidebar {
     position: fixed;
-    top: 30px;
+    top: 2em;
     right: 0%;
-    width:calc(18% - 42px);
-    padding: 20px 20px 20px 20px;
+    width:calc(18% - 2.65em);
+    padding: 1.2em;
     background:#232323;
     height:89.5%;
-    border: 2px groove #151515;
+    border: 0.125em groove #151515;
     text-align: left;
 }
 
@@ -282,8 +277,8 @@ body{
 
 
 #pagination, #add_topic_button, #add_post_button {
-    margin: 5px 5px 0px 0px;
-    padding-top: 5px;
+    margin: 0.375em 0.375em 0em 0em;
+    padding-top: 0.375em;
     float: right;
     clear: right;
     font-size: 80%;
@@ -298,22 +293,22 @@ body{
 
 
 #footer{
-    border-width: 1px 2px 2px 2px;
+    border-width: 0.078125em 0.15625em 0.15625em 0.15625em;
     border-style: solid;
     border-color: #151515;
     background-color: #2B2B2B;
-    font-size: 83%;
+    font-size: 80%;
     text-align: left;
 }
 
 #online_members{
-    padding: 5px 2px 5px 5px;
-    border-bottom: 2px solid #151515;
+    padding: 0.375em 0.15em 0.375em 0.375em;
+    border-bottom: 0.15625em solid #151515;
 }
 
 #board_statistics{
-    margin: 5px 0px 5px 0px;
-    padding: 2px 2px 2px 5px;
+    margin: 0.375em 0em 0.375em 0em;
+    padding: 0.15em 0.15em 0.15em 0.375em;
 
 }
 
