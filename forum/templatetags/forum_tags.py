@@ -8,7 +8,7 @@ from django.db.models import Count, Max
 
 import datetime
 
-from ..models import Section, Topic, Post
+from ..models import Section, Topic, Post, Message
 
 register = template.Library()
 
@@ -81,3 +81,14 @@ def jump_menu(context):
             jump_menu['final_jump'] = link
 
     return jump_menu
+
+@register.inclusion_tag('forum/chat_box.html', takes_context=True)
+def chat_messages(context):
+    # display the last 5 chat messages only
+    messages = Message.objects.all()
+    # need to convert to a list to use negative indexing
+    last_three_messages = list(messages.values_list('content', flat=True))[-3:]
+    request = context['request']
+    path = request.path
+    return {'last_three_messages': last_three_messages,
+            'path': path}

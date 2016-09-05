@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 
 from .forms import AddPostForm, AddTopicForm, LoginForm, ProfileEditForm, \
     UserEditForm, UserRegistrationForm
-from .models import Section, Topic, Post, Profile
+from .models import Section, Topic, Post, Profile, Message
 
 
 # section views
@@ -181,6 +181,21 @@ def add_post(request, section, topic):
     return render(request,
                   'forum/add_post.html',
                   {'form': form})
+
+# chat views
+def add_chat_message(request):
+    path = str(request.path).replace('add_chat_message/', '')
+
+    if request.method == 'POST':
+        message_text = request.POST.get('chat_message_text')
+        user = request.user
+
+
+        new_message = Message.objects.create(content=message_text,
+                                             owner=user)
+        new_message.save()
+
+    return redirect(path)
 
 # profile views
 @login_required
