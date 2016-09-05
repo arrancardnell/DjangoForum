@@ -13,7 +13,7 @@ class AddPostForm(forms.ModelForm):
 class AddTopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ('title', 'description',)
+        fields = ('title',)
 
 
 class LoginForm(forms.Form):

@@ -3,7 +3,7 @@
         {% if final_jump == link %}
             <li class="jump_menu_link"><a href="{{ link }}">{{ jump|capfirst }}</a></li>
         {% else %}
-            <li class="jump_menu_link"><a href="{{ link }}">{{ jump|capfirst }}</a> ></li>
+            <li class="jump_menu_link"><a href="{{ link }}">{{ jump|capfirst }}</a> &rarr;</li>
         {% endif %}
     {% endfor %}
 </ul>

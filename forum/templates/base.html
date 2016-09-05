@@ -8,18 +8,18 @@
     </head>
     <body>
 	<div id="header">
-            {% if request.user.is_authenticated %}
-            Hello {{ request.user.username }},
-            <a href="{% url 'forum:logout' %}">Logout</a>
-            <a href="{% url 'forum:edit' %}">Edit profile</a>
-            {% else %}
-            <a href="{% url 'forum:login' %}">Log-in</a> |
-            <a href="{% url 'forum:register' %}">Sign-up</a>
-            {% endif %}
+	    {% if request.user.is_authenticated %}
+	    Welcome {{ request.user.username }}
+	    <a href="{% url 'forum:logout' %}">[Logout]</a> |
+	    <a href="{% url 'forum:edit' %}">[Edit profile]</a>
+	    {% else %}
+	    <a href="{% url 'forum:login' %}">[Log-in]</a> |
+	    <a href="{% url 'forum:register' %}">[Sign-up]</a>
+	    {% endif %}
         </div>
         <div id="wrapper">
             <div id="title">
-                <h1>Home</h1>
+                <h1>League of Casuals!</h1>
             </div>
             <div id="jump_menu">
                 {% jump_menu %}
@@ -53,20 +53,21 @@
                 </div>
             </div>
             <div id="footer">
-                <ul class="footer">
-                    <li>Total Members: {% total_members %}</li>
-                    <li>Newest Member: {% newest_member %}</li>
-                    <li>Total Posts: {% total_posts %}</li>
+                <div id="online_members">
                     {% online_members as online_members %}
-                    <li>Members Online:
+                        Members Online:
                         {% for member in online_members %}
                             {% if forloop.last %}
                                 {{ member }}
                             {% else %}
                                 {{ member }},
                             {% endif %}
-                        {% endfor %}</li>
-                </ul>
+                        {% endfor %}
+                </div>
+                <div id="board_statistics">
+                    Total Members: {% total_members %} (Newest Member: {% newest_member %}) <br/>
+		    Total Forum Posts: {% total_posts %}
+                </div>
             </div>
         </div><!--wrapper-->
     </body>
