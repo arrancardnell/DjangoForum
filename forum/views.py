@@ -5,10 +5,11 @@ from django.db.models import Max
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
-
 from .forms import AddPostForm, AddTopicForm, LoginForm, ProfileEditForm, \
     UserEditForm, UserRegistrationForm
 from .models import Section, Topic, Post, Profile, Message
+
+import json
 
 
 # section views
@@ -189,13 +190,23 @@ def add_chat_message(request):
     if request.method == 'POST':
         message_text = request.POST.get('chat_message_text')
         user = request.user
-
+        response_data = {}
 
         new_message = Message.objects.create(content=message_text,
                                              owner=user)
         new_message.save()
 
-    return redirect(path)
+        response_data['result'] = 'Created'
+        response_data['message_pk'] = new_message.pk
+        response_data['text'] = new_message.content
+        response_data['created'] = new_message.created.strftime('%B %d, %Y %I:%M %p')
+        response_data['owner'] = new_message.owner.username
+
+        return HttpResponse(json.dumps(response_data),
+                            content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'result': 'Not created'}),
+                            content_type='application/json')
 
 # profile views
 @login_required

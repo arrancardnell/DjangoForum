@@ -15,5 +15,11 @@ function create_message() {
         url: 'add_chat_message/',
         type: 'POST',
         data: {chat_message_text: $('#chat_message_text').val()},
-    })
+
+        // handle a successful response
+        success : function(json){
+            $('#chat_message_text').val('');
+            $('.chat_messages').append('<li class="chat_message">'+json.text+'</li>');
+        }
+    });
 };
