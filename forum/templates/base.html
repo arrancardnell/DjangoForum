@@ -1,5 +1,5 @@
 {% load forum_tags %}
-{% load staticfiles %}
+{% load static %}
 <! DOCTYPE html>
 <html>
     <head>
@@ -25,7 +25,7 @@
                 {% jump_menu %}
             </div>
             <div id="chat">
-                <p>Chat placeholder</p>
+                {% chat_messages %}
             </div>
             <div id="content">
                 {% block content %}
@@ -66,9 +66,13 @@
                 </div>
                 <div id="board_statistics">
                     Total Members: {% total_members %} (Newest Member: {% newest_member %}) <br/>
-		    Total Forum Posts: {% total_posts %}
+		            Total Forum Posts: {% total_posts %}
                 </div>
             </div>
         </div><!--wrapper-->
+        <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+        <script src="{% static 'js/jquery.cookie.min.js' %}"></script>
+        <script src="{% static 'js/check_csrf_token.js' %}"></script>
+        <script src="{% static 'js/chat_box_refresh.js' %}"></script>
     </body>
 </html>

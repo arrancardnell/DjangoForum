@@ -1,0 +1,14 @@
+<div id="chat_messages">
+    <ul class="chat_messages_list">
+        {% for message in last_three_messages %}
+            <li class="chat_message">{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<div id="add_chat_message_form">
+    <form method="post" id="add_chat_message">
+        {% csrf_token %}
+        <input type="text" id="chat_message_text" name="chat_message_text" />
+        <input type="submit" id="chat_message_submit" value="Chat" />
+    </form>
+</div>
