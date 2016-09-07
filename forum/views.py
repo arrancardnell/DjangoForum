@@ -185,7 +185,6 @@ def add_post(request, section, topic):
 
 # chat views
 def add_chat_message(request):
-    path = str(request.path).replace('add_chat_message/', '')
 
     if request.method == 'POST':
         message_text = request.POST.get('chat_message_text')
@@ -196,7 +195,7 @@ def add_chat_message(request):
                                              owner=user)
         new_message.save()
 
-        response_data['result'] = 'Created'
+        response_data['result'] = 'created'
         response_data['message_pk'] = new_message.pk
         response_data['text'] = new_message.content
         response_data['created'] = new_message.created.strftime('%B %d, %Y %I:%M %p')
@@ -205,7 +204,28 @@ def add_chat_message(request):
         return HttpResponse(json.dumps(response_data),
                             content_type='application/json')
     else:
-        return HttpResponse(json.dumps({'result': 'Not created'}),
+        return HttpResponse(json.dumps({'result': 'not created'}),
+                            content_type='application/json')
+
+def refresh_chat(request):
+
+    if request.method == 'POST':
+        response_data = {}
+
+        # display the last five chat messages only
+        messages = Message.objects.all()
+        # need to convert to a list to use negative indexing
+        last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-5:]
+        for idx, message in enumerate(last_five_messages):
+            last_five_messages[idx]['created'] = message['created'].strftime('%B %d, %Y %I:%M %p')
+
+        response_data['result'] = 'refreshed'
+        response_data['messages'] = last_five_messages
+
+        return HttpResponse(json.dumps(response_data),
+                            content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'result': 'not refreshed'}),
                             content_type='application/json')
 
 # profile views
