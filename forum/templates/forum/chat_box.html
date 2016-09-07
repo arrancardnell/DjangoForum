@@ -1,12 +1,10 @@
 <div id="chat_messages">
-    <ul class="chat_messages_list">
-        {% for message in last_three_messages %}
-            <li class="chat_message">{{ message }}</li>
-        {% endfor %}
-    </ul>
+    {% for message in last_five_messages %}
+        <p class="chat_message">{{ message.owner__username }} ({{ message.created }}): {{ message.content }}</p>
+    {% endfor %}
 </div>
 <div id="add_chat_message_form">
-    <form method="post" id="add_chat_message">
+    <form action="add_chat_message/" method="post" id="add_chat_message">
         {% csrf_token %}
         <input type="text" id="chat_message_text" name="chat_message_text" />
         <input type="submit" id="chat_message_submit" value="Chat" />

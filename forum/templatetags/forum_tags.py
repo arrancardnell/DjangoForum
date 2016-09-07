@@ -84,11 +84,11 @@ def jump_menu(context):
 
 @register.inclusion_tag('forum/chat_box.html', takes_context=True)
 def chat_messages(context):
-    # display the last 5 chat messages only
+    # display the last five chat messages only
     messages = Message.objects.all()
     # need to convert to a list to use negative indexing
-    last_three_messages = list(messages.values_list('content', flat=True))[-3:]
+    last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-5:]
     request = context['request']
     path = request.path
-    return {'last_three_messages': last_three_messages,
+    return {'last_five_messages': last_five_messages,
             'path': path}
