@@ -102,7 +102,7 @@ body{
 .chat_message{
     overflow: auto;
     background-color: #252525;
-    padding: 0.25em 0em;
+    padding: 0.375em 0em;
 }
 
 .chat_message:nth-child(even){
