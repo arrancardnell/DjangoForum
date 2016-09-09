@@ -87,7 +87,7 @@ def chat_messages(context):
     # display the last five chat messages only
     messages = Message.objects.all()
     # need to convert to a list to use negative indexing
-    last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-5:]
+    last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
     request = context['request']
     path = request.path
     return {'last_five_messages': last_five_messages,

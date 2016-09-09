@@ -84,13 +84,109 @@ body{
 
 
 
+
+
+
 #chat{
-    border-top: 0.06em solid transparent;
-    border-bottom: 0.06em solid transparent;
-    border-left: 0.06em solid #151515;
-    border-right: 0.06em solid #151515;
     height: 10em;
+    border-left: 0.125em groove #151515;
+    border-right: 0.125em groove #151515;
 }
+
+#chat_messages{
+    height: calc(87% - 0.125em); /*Fix it to the height of chat*/
+    border-bottom: 0.125em solid #151515;
+    overflow-y: scroll;
+}
+
+.chat_message{
+    overflow: auto;
+    background-color: #252525;
+    padding: 0.25em 0em;
+}
+
+.chat_message:nth-child(even){
+    background-color: #232323;
+}
+
+.chat_user, .chat_comment{
+    float: left;
+    font-size: 80%;
+    color: #b2b2b2;
+}
+
+.chat_user{
+    clear: left;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.chat_date{
+    padding-left: 0.5em;
+    font-size: 80%;
+    color: gold;
+}
+
+#add_chat_message_form{ 
+    width: calc(100% - 0.25em);
+    height: calc(13% - 0.125em);
+    padding: 0.0625em 0.125em 0.0625em 0.125em;
+}
+
+#add_chat_message{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+#chat_message_text{
+    width: calc(90%);
+    height: 100%;
+    box-sizing: border-box; 
+    background-color: #252525;
+    border-width: 0.078125em;
+    border-style: inset;
+    border-color: #151515;
+    border-radius: 0.234375em;
+    color: #b2b2b2;
+    outline: none;
+    font-size: 80%;
+    font-family: "Times New Roman", Georgia, serif;
+    padding-left: 0.234375em;
+    vertical-align: top;
+    
+}
+
+#chat_message_text:focus{
+    background-color: #202020;
+    border-bottom-color: #191919;
+}
+
+#chat_message_submit{
+    width: calc(10% - 0.125em);
+    height: 100%;
+    border-width: 0.125em;
+    border-radius: 0.25em;
+    border-color: #151515;
+    margin-left: 0.125em;
+    float: right;
+    color: #e5e5e5;
+    background: -webkit-linear-gradient(#303030, #232323);
+    background: -moz-linear-gradient(#303030, #232323);
+    background: -o-linear-gradient(#303030, #232323);
+    background: -ms-linear-gradient(#303030, #232323);
+    outline: none;
+    vertical-align: top;
+}
+
+#chat_message_submit:active{
+    background: -webkit-linear-gradient(#232323, #303030);
+    background: -moz-linear-gradient(#232323, #303030);
+    background: -o-linear-gradient(#232323, #303030);
+    background: -ms-linear-gradient(#232323, #303030);
+}
+
+
 
 
 
@@ -98,7 +194,7 @@ body{
 
 #content {
     overflow: auto;
-    min-height: 28em;
+    min-height: 35em;
     width: 100%;
     border-width: 0.06em 0em 0.06em 0em;
     border-style: solid;
