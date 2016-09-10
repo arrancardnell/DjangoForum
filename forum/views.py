@@ -225,13 +225,13 @@ def refresh_chat(request):
             # display the last five chat messages only
             messages = Message.objects.all()
             # need to convert to a list to use negative indexing
-            last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
-            last_five_messages.reverse()
-            for idx, message in enumerate(last_five_messages):
-                last_five_messages[idx]['created'] = message['created'].strftime('%b %d, %Y %I:%M %p')
+            last_ten_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
+            last_ten_messages.reverse()
+            for idx, message in enumerate(last_ten_messages):
+                last_ten_messages[idx]['created'] = message['created'].strftime('%b %d, %Y %I:%M %p')
 
             response_data['result'] = 'refreshed'
-            response_data['messages'] = last_five_messages
+            response_data['messages'] = last_ten_messages
 
             return HttpResponse(json.dumps(response_data),
                                 content_type='application/json')

@@ -47,8 +47,8 @@ def top_three_posters(count=3):
 
 @register.assignment_tag
 def top_three_topics(count=3):
-    # annotate each total with its total posts and the lastest post. Filter any topic
-    # with less than 5 posts (can't be a hot topic if nonne is posting!), order them
+    # annotate each topic with its total posts and the latest post. Filter any topic
+    # with less than 5 posts (can't be a hot topic if noone is posting!), order them
     # by the time of last post and return the top three topicd
     top_three_topics = Topic.objects.annotate(
         total_posts=Count('topic_posts'), latest_post=Max('topic_posts__created')).filter(
@@ -84,11 +84,11 @@ def chat_messages(context):
     # display the last five chat messages only
     messages = Message.objects.all()
     # need to convert to a list to use negative indexing
-    last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
-    last_five_messages.reverse()
+    last_ten_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
+    last_ten_messages.reverse()  # newest messages at the top of the chat
     request = context['request']
-    authenticated = request.user.is_authenticated()
+    authenticated = request.user.is_authenticated()  # check if user is logged in
     path = request.path
-    return {'last_five_messages': last_five_messages,
+    return {'last_ten_messages': last_ten_messages,
             'authenticated': authenticated,
             'path': path}

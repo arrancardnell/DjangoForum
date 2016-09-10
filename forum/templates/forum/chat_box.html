@@ -1,5 +1,5 @@
 <div id="chat_messages">
-    {% for message in last_five_messages %}
+    {% for message in last_ten_messages %}
         <div class="chat_message"> 
              <div class="chat_user">{{ message.owner__username }}: </div> 
              <div class="chat_comment">{{ message.content }}<span class="chat_date">{{ message.created|date:"b d, Y h:i A"|capfirst }}</span></div>
