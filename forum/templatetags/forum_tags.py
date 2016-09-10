@@ -77,9 +77,6 @@ def jump_menu(context):
         else:
             jump_menu['jumps'][jump_name.replace('-', ' ').replace('_', ' ')] = link
 
-        if index == len(path_list)-1:
-            jump_menu['final_jump'] = link
-
     return jump_menu
 
 @register.inclusion_tag('forum/chat_box.html', takes_context=True)
@@ -88,6 +85,7 @@ def chat_messages(context):
     messages = Message.objects.all()
     # need to convert to a list to use negative indexing
     last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
+    last_five_messages.reverse()
     request = context['request']
     path = request.path
     return {'last_five_messages': last_five_messages,

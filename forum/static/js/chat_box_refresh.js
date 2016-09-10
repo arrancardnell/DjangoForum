@@ -16,12 +16,14 @@ function create_message() {
 
         // handle a successful response
         success : function(json){
-            $('#chat_message_text').val('');
-            $('.chat_message:first').remove();
-            $('#chat_messages')
-                .append('<div class="chat_message"> <div class="chat_user">'
-                    +json.owner+': </div> <div class="chat_comment">'+json.text
-                    +'<span class="chat_date">'+json.created+'</span></div></div>');
+            if (json.result == 'created') {
+                $('#chat_message_text').val('');
+                $('.chat_message:last').remove();
+                $('#chat_messages')
+                    .prepend('<div class="chat_message"> <div class="chat_user">'
+                        + json.owner + ': </div> <div class="chat_comment">' + json.text
+                        + '<span class="chat_date">' + json.created + '</span></div></div>');
+            }
         }
     });
 };
