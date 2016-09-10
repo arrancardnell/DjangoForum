@@ -5,7 +5,7 @@
 $('#add_chat_message').on('submit', function(event) {
     event.preventDefault();
     create_message();
-})
+});
 
 // AJAX for creating messages
 function create_message() {
@@ -26,27 +26,30 @@ function create_message() {
             }
         }
     });
-};
+}
 
 // AJAX for refreshing the chat
 function refresh_chat() {
     $.ajax({
         url: 'refresh_chat/',
         type: 'POST',
+        data: {last_message: $('.chat_message:first').val()},
 
         // handle successful response
         success : function(json){
-            var $chat_messages = $('#chat_messages');
-            $('.chat_message').remove();
-            var messages = json.messages;
-            for (i=0; i < messages.length; i++){
-                $chat_messages.append('<div class="chat_message"> <div class="chat_user">'
-                    +messages[i]['owner__username']+': </div> <div class="chat_comment">'+messages[i]['content']
-                    +'<span class="chat_date">'+messages[i]['created']+'</span></div></div>')
-            };
+            if (json.result == 'refreshed') {
+                var $chat_messages = $('#chat_messages');
+                $('.chat_message').remove();
+                var messages = json.messages;
+                for (i = 0; i < messages.length; i++) {
+                    $chat_messages.append('<div class="chat_message"> <div class="chat_user">'
+                        + messages[i]['owner__username'] + ': </div> <div class="chat_comment">' + messages[i]['content']
+                        + '<span class="chat_date">' + messages[i]['created'] + '</span></div></div>')
+                }
+            }
         }
     });
-};
+}
 
 var refreshId = setInterval(function () {
     refresh_chat();

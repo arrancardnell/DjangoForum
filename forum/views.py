@@ -214,21 +214,30 @@ def add_chat_message(request):
 def refresh_chat(request):
 
     if request.method == 'POST':
-        response_data = {}
 
-        # display the last five chat messages only
-        messages = Message.objects.all()
-        # need to convert to a list to use negative indexing
-        last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
-        last_five_messages.reverse()
-        for idx, message in enumerate(last_five_messages):
-            last_five_messages[idx]['created'] = message['created'].strftime('%b %d, %Y %I:%M %p')
+        last_message = Message.objects.latest('created').content
+        last_chat_message = request.POST.get('last_message')
 
-        response_data['result'] = 'refreshed'
-        response_data['messages'] = last_five_messages
+        # check whether any new chat messages have been added
+        if last_message != last_chat_message:
+            response_data = {}
 
-        return HttpResponse(json.dumps(response_data),
-                            content_type='application/json')
+            # display the last five chat messages only
+            messages = Message.objects.all()
+            # need to convert to a list to use negative indexing
+            last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
+            last_five_messages.reverse()
+            for idx, message in enumerate(last_five_messages):
+                last_five_messages[idx]['created'] = message['created'].strftime('%b %d, %Y %I:%M %p')
+
+            response_data['result'] = 'refreshed'
+            response_data['messages'] = last_five_messages
+
+            return HttpResponse(json.dumps(response_data),
+                                content_type='application/json')
+        else:
+            return HttpResponse(json.dumps({'result': 'not refreshed'}),
+                                content_type='application/json')
     else:
         return HttpResponse(json.dumps({'result': 'not refreshed'}),
                             content_type='application/json')
