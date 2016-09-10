@@ -171,19 +171,13 @@ body{
     margin-left: 0.125em;
     float: right;
     color: #e5e5e5;
-    background: -webkit-linear-gradient(#303030, #232323);
-    background: -moz-linear-gradient(#303030, #232323);
-    background: -o-linear-gradient(#303030, #232323);
-    background: -ms-linear-gradient(#303030, #232323);
+    background: linear-gradient(#303030, #232323);
     outline: none;
     vertical-align: top;
 }
 
 #chat_message_submit:active{
-    background: -webkit-linear-gradient(#232323, #303030);
-    background: -moz-linear-gradient(#232323, #303030);
-    background: -o-linear-gradient(#232323, #303030);
-    background: -ms-linear-gradient(#232323, #303030);
+    background: linear-gradient(#232323, #303030);
 }
 
 
@@ -351,7 +345,7 @@ body{
     right: 0%;
     width:calc(18% - 2.65em);
     padding: 1.2em;
-    background:#232323;
+    background: #232323;
     height:89.5%;
     border: 0.125em groove #151515;
     text-align: left;
