@@ -188,21 +188,25 @@ def add_chat_message(request):
 
     if request.method == 'POST':
         message_text = request.POST.get('chat_message_text')
-        user = request.user
-        response_data = {}
+        if message_text:
+            user = request.user
+            response_data = {}
 
-        new_message = Message.objects.create(content=message_text,
-                                             owner=user)
-        new_message.save()
+            new_message = Message.objects.create(content=message_text,
+                                                 owner=user)
+            new_message.save()
 
-        response_data['result'] = 'created'
-        response_data['message_pk'] = new_message.pk
-        response_data['text'] = new_message.content
-        response_data['created'] = new_message.created.strftime('%B %d, %Y %I:%M %p')
-        response_data['owner'] = new_message.owner.username
+            response_data['result'] = 'created'
+            response_data['message_pk'] = new_message.pk
+            response_data['text'] = new_message.content
+            response_data['created'] = new_message.created.strftime('%b %d, %Y %I:%M %p')
+            response_data['owner'] = new_message.owner.username
 
-        return HttpResponse(json.dumps(response_data),
-                            content_type='application/json')
+            return HttpResponse(json.dumps(response_data),
+                                content_type='application/json')
+        else:
+            return HttpResponse(json.dumps({'result': 'not created'}),
+                                content_type='application/json')
     else:
         return HttpResponse(json.dumps({'result': 'not created'}),
                             content_type='application/json')
@@ -216,8 +220,9 @@ def refresh_chat(request):
         messages = Message.objects.all()
         # need to convert to a list to use negative indexing
         last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
+        last_five_messages.reverse()
         for idx, message in enumerate(last_five_messages):
-            last_five_messages[idx]['created'] = message['created'].strftime('%B %d, %Y %I:%M %p')
+            last_five_messages[idx]['created'] = message['created'].strftime('%b %d, %Y %I:%M %p')
 
         response_data['result'] = 'refreshed'
         response_data['messages'] = last_five_messages
