@@ -87,6 +87,8 @@ def chat_messages(context):
     last_five_messages = list(messages.values('owner__username', 'created', 'content'))[-10:]
     last_five_messages.reverse()
     request = context['request']
+    authenticated = request.user.is_authenticated()
     path = request.path
     return {'last_five_messages': last_five_messages,
+            'authenticated': authenticated,
             'path': path}

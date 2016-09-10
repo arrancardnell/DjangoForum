@@ -7,6 +7,11 @@
     {% endfor %}
 </div>
 <div id="add_chat_message_form">
-    <form action="add_chat_message/" method="post" id="add_chat_message">{% csrf_token %}<input type="text" id="chat_message_text" name="chat_message_text"/><input type="submit" id="chat_message_submit" value="Chat" />
+    <form action="add_chat_message/" method="post" id="add_chat_message">
+        {% csrf_token %}
+        {% if authenticated %}
+            <input type="text" id="chat_message_text" name="chat_message_text"/>
+            <input type="submit" id="chat_message_submit" value="Chat" />
+        {% endif %}
     </form>
 </div>
