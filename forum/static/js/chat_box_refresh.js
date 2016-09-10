@@ -19,7 +19,9 @@ function create_message() {
             $('#chat_message_text').val('');
             $('.chat_message:first').remove();
             $('#chat_messages')
-                .append('<p class="chat_message">'+json.owner+' ('+json.created+')'+': '+json.text+'</p>');
+                .append('<div class="chat_message"> <div class="chat_user">'
+                    +json.owner+': </div> <div class="chat_comment">'+json.text
+                    +'<span class="chat_date">'+json.created+'</span></div></div>');
         }
     });
 };
@@ -36,8 +38,9 @@ function refresh_chat() {
             $('.chat_message').remove();
             var messages = json.messages;
             for (i=0; i < messages.length; i++){
-                $chat_messages.append('<p class="chat_message">'
-                    +messages[i]['owner__username']+' ('+messages[i]['created']+')'+': '+messages[i]['content']+'</p>')
+                $chat_messages.append('<div class="chat_message"> <div class="chat_user">'
+                    +messages[i]['owner__username']+': </div> <div class="chat_comment">'+messages[i]['content']
+                    +'<span class="chat_date">'+messages[i]['created']+'</span></div></div>')
             };
         }
     });
