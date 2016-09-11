@@ -10,8 +10,8 @@
     <form action="add_chat_message/" method="post" id="add_chat_message">
         {% csrf_token %}
         {% if authenticated %}
-            <input type="text" id="chat_message_text" name="chat_message_text"/>
-            <input type="submit" id="chat_message_submit" value="Chat" />
+            <input type="text" id="chat_message_text" name="chat_message_text"/><input type="submit" id="chat_message_submit" value="Chat" />
+            <!--KEEP THE INPUTS ON THE SAME LINE. Or don't and see what happens. Go on, make my day.-->
         {% endif %}
     </form>
 </div>
