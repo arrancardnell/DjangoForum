@@ -17,6 +17,11 @@
                 <div class="topic_owner">
                     <p>Created by {{ topic.owner }} ({{ topic.created }})</p>
                 </div>
+                <div class="topic_post_info">
+                    {% with topic.topic_posts.latest as latest_post %}
+                        <p>Last post by: {{ latest_post.owner }} at {{ latest_post.created }}</p>
+                    {% endwith %}
+                </div>
                 <div class="topic_stats">
                     {% with topic.topic_posts.count as replies %}
                         <p>Replies: {{ replies }} | Views: 10</p>

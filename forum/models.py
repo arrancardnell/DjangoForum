@@ -101,6 +101,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['created']
+        get_latest_by = ('created')
 
 class Message(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
