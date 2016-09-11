@@ -18,7 +18,11 @@ function create_message() {
         success : function(json){
             if (json.result == 'created') {
                 $('#chat_message_text').val('');
-                $('.chat_message:last').remove();
+                $chat_messages = $('.chat_message');
+                // only remove the last message if there are already 10
+                if ($chat_messages.length == 10){
+                    $chat_messages.last().remove();
+                }
                 $('#chat_messages')
                     .prepend('<div class="chat_message"> <div class="chat_user">'
                         + json.owner + ': </div> <div class="chat_comment">' + json.text
