@@ -271,7 +271,7 @@ body{
     border-color: #151515;
     box-sizing: border-box;
 }
-.topic_info, .topic_owner, .topic_stats {
+.topic_info, .topic_owner, .topic_post_info, .topic_stats {
 
     box-sizing: border-box;
     height: 4em;
@@ -284,13 +284,15 @@ body{
 }
 
 .topic_info {
-    width: 60%; 
+    width: 45%;
     text-align: left;
 }
 .topic_owner{
-    width: 25%;
+    width: 20%;
 }
-
+.topic_post_info {
+    width: 20%
+}
 .topic_stats{
     width: calc(15%); 
 }
@@ -299,7 +301,7 @@ body{
     font-size: 80%;
     padding-top: 0.375em;
 }
-.topic_owner p, .topic_stats p{
+.topic_owner p, .topic_post_info p, .topic_stats p{
     margin: 0px;
     font-size: 90%;
 }
