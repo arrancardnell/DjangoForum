@@ -35,6 +35,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('forum:section_list')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
+# redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
 # Application definition
 
 INSTALLED_APPS = [

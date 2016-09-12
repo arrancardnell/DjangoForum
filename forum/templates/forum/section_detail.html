@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load forum_tags %}
 
 {% block title %}{{ section.title }}{% endblock %}
 
@@ -24,7 +25,8 @@
                 </div>
                 <div class="topic_stats">
                     {% with topic.topic_posts.count as replies %}
-                        <p>Replies: {{ replies }} | Views: 10</p>
+                        <p>Replies: {{ replies }}</p>
+                        <p>Views: {% total_views topic.id %}</p>
                     {% endwith %}
                 </div>
             </div>

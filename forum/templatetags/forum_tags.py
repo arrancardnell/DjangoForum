@@ -6,9 +6,15 @@ from django.core.cache import cache
 from django.core.cache.backends import locmem
 from django.db.models import Count, Max
 
-import datetime
-
 from ..models import Section, Topic, Post, Message
+
+import datetime
+import redis
+
+# connect to redis
+r = redis.StrictRedis(host=settings.REDIS_HOST,
+                      port=settings.REDIS_PORT,
+                      db=settings.REDIS_DB)
 
 register = template.Library()
 
@@ -23,6 +29,10 @@ def total_members():
 @register.simple_tag
 def newest_member():
     return User.objects.latest('date_joined')
+
+@register.simple_tag
+def total_views(topic_id):
+    return r.get('topic:{}:views'.format(topic_id))
 
 @register.assignment_tag
 def online_members():

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -10,7 +11,12 @@ from .forms import AddPostForm, AddTopicForm, LoginForm, ProfileEditForm, \
 from .models import Section, Topic, Post, Profile, Message
 
 import json
+import redis
 
+# connect to redis
+r = redis.StrictRedis(host=settings.REDIS_HOST,
+                      port=settings.REDIS_PORT,
+                      db=settings.REDIS_DB)
 
 # section views
 def section_list(request):
@@ -54,6 +60,8 @@ def topic_detail(request, section, topic):
     topic = get_object_or_404(Topic,
                               section=section,
                               slug=topic)
+    # increment the total views by 1
+    r.incr('topic:{}:views'.format(topic.id))
     post_list = Post.objects.filter(topic=topic)
     paginator = Paginator(post_list, 5)
     page = request.GET.get('page')
