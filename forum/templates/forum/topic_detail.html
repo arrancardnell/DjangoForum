@@ -11,7 +11,7 @@
         {% for post in posts %}
             <div class="post_info">
                 <div class="poster">
-                    {{ post.owner }}
+                    {{ post.owner }} {{ post.created }}
                 </div>
                 <div class="post_content">
                     {{ post.content }}
