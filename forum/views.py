@@ -191,6 +191,31 @@ def add_post(request, section, topic):
                   'forum/add_post.html',
                   {'form': form})
 
+def update_likes(request):
+
+    if request.method == 'POST':
+        response_data = {}
+        post_id = request.POST.get('post_id')
+        post_action = request.POST.get('post_action')
+
+        post = Post.objects.get(id=post_id)
+        user = request.user
+
+        if post_action == 'like':
+            post.user_likes.add(user)
+        else:
+            post.user_likes.remove(user)
+        post.save()
+
+        response_data['result'] = 'updated'
+        response_data['users_like'] = post.users_like.all()
+        response_data['post_likes'] = post.likes.count()
+
+        return HttpResponse(json.dumps(response_data),
+                            content_type='application/json')
+    else:
+        return HttpResponse({'result': 'not updated'},
+                            content_type='application/json')
 # chat views
 def add_chat_message(request):
 

@@ -10,7 +10,7 @@ $('#add_chat_message').on('submit', function(event) {
 // AJAX for creating messages
 function create_message() {
     $.ajax({
-        url: 'add_chat_message/',
+        url: 'add_chat_message/$',
         type: 'POST',
         data: {chat_message_text: $('#chat_message_text').val()},
 
