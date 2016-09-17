@@ -4,10 +4,10 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    # message_view
-    url(r'add_chat_message/$', views.add_chat_message, name='add_chat_message'),
-    url(r'refresh_chat/$', views.refresh_chat, name='refresh_chat'),
-    url(r'update_likes/$', views.update_likes, name='update_likes'),
+    # ajax_view
+    url(r'ajax/add_chat_message/$', views.add_chat_message, name='add_chat_message'),
+    url(r'ajax/refresh_chat/$', views.refresh_chat, name='refresh_chat'),
+    url(r'ajax/update_likes/$', views.update_likes, name='update_likes'),
 
     # login views
     url(r'^login/$', auth_views.login, name='login'),

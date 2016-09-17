@@ -11,7 +11,7 @@ $('#add_chat_message').on('submit', function(event) {
 // AJAX for creating messages
 function create_message() {
     $.ajax({
-        url: 'add_chat_message/',
+        url: 'ajax/add_chat_message/',
         type: 'POST',
         data: {chat_message_text: $('#chat_message_text').val()},
 
@@ -36,7 +36,7 @@ function create_message() {
 // AJAX for refreshing the chat
 function refresh_chat() {
     $.ajax({
-        url: 'refresh_chat/',
+        url: 'ajax/refresh_chat/',
         type: 'POST',
         data: {last_message: $('.chat_message:first').val()},
 
@@ -66,7 +66,7 @@ $('.like_post_button').on('click', function(event) {
     event.preventDefault();
     var $this = $(this);
     $.ajax({
-        url: 'update_likes/',
+        url: 'ajax/update_likes/',
         type: 'POST',
         data: {
             post_id: $this.data('id'),

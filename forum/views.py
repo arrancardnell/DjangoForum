@@ -194,7 +194,6 @@ def add_post(request, section, topic):
 def update_likes(request):
 
     if request.method == 'POST':
-        print('hello')
         response_data = {}
         post_id = request.POST.get('post_id')
         post_action = request.POST.get('post_action')
