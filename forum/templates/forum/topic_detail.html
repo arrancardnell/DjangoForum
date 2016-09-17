@@ -12,7 +12,7 @@
             {% with users_like=post.likes.all post_likes=post.likes.count %}
             <div id="post_{{ post.id }}" class="post_info">
                 <div class="poster">
-                    {{ post.owner }}
+                    {{ post.owner }} {{ post.created }}
                 </div>
                 <div class="post_content">
                     {{ post.content }}
