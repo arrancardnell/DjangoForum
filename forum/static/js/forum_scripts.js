@@ -1,6 +1,7 @@
 /**
- * Created by arran on 05/09/16.
+ * Created by arran on 17/09/16.
  */
+
 
 $('#add_chat_message').on('submit', function(event) {
     event.preventDefault();
@@ -18,7 +19,7 @@ function create_message() {
         success : function(json){
             if (json.result == 'created') {
                 $('#chat_message_text').val('');
-                $chat_messages = $('.chat_message');
+                var $chat_messages = $('.chat_message');
                 // only remove the last message if there are already 10
                 if ($chat_messages.length == 10){
                     $chat_messages.last().remove();
@@ -58,3 +59,46 @@ function refresh_chat() {
 var refreshId = setInterval(function () {
     refresh_chat();
 }, 9000);
+
+
+// AJAX for liking posts
+$('.like_post_button').on('click', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    $.ajax({
+        url: 'update_likes/',
+        type: 'POST',
+        data: {
+            post_id: $this.data('id'),
+            post_action: $this.data('action')
+        },
+
+        // handle a successful response
+        success : function(json){
+            if (json.result == 'updated'){
+
+                var previous_action = $this.data('action');
+                var $post = $('#post_'+json.post_id);
+                var $post_likes = $post.find('.post_likes');
+                var total_likes = parseInt(json.post_likes);
+
+                // remove any text after an unlike if there are no likes
+                if (total_likes == 0){
+                    $post_likes.text('');
+                } else {
+                    var users_pluralize;
+                    // pluralize the text based on single or multiple likes
+                    if (total_likes == 1) {
+                        users_pluralize = ' user likes';
+                    } else {
+                        users_pluralize = ' users like';
+                    }
+                    $post_likes.text(total_likes + users_pluralize + ' this post');
+                }
+                // Set the new action and text
+                $this.data('action', previous_action == 'like' ? 'unlike' : 'like');
+                $this.val(previous_action == 'like' ? 'Unlike' : 'Like');
+            }
+        }
+    });
+});
