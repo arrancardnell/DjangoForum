@@ -137,3 +137,13 @@ class Profile(models.Model):
                 return True
         else:
             return False
+
+class Inbox(models.Model):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
