@@ -9,7 +9,7 @@
     </div>
     <div id="post_list">
         {% for post in posts %}
-            {% with users_like=post.users_like.all post_likes=post.likes %}
+            {% with users_like=post.likes.all post_likes=post.likes.count %}
             <div id="post_{{ post.id }}" class="post_info">
                 <div class="poster">
                     {{ post.owner }}
@@ -19,13 +19,17 @@
                 </div>
                 <div class="post_likes">
                     {% if post_likes > 0 %}
-                        {{ post_likes|pluralize }} user{{ post_likes|pluralize }} like this post
+                        {% if post_likes == 1 %}
+                            {{ post_likes }} user likes this post
+                        {% else %}
+                            {{ post_likes }} users like this post
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="like_post">
                     <input data-id="{{ post.id }}"
                            data-action="{% if request.user in users_like %}un{% endif %}like"
-                           type="submit"
+                           type="button"
                            class="like_post_button"
                            value="{% if request.user in users_like %}Unlike{% else %}Like{% endif %}"
                     />

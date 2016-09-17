@@ -194,6 +194,7 @@ def add_post(request, section, topic):
 def update_likes(request):
 
     if request.method == 'POST':
+        print('hello')
         response_data = {}
         post_id = request.POST.get('post_id')
         post_action = request.POST.get('post_action')
@@ -202,13 +203,14 @@ def update_likes(request):
         user = request.user
 
         if post_action == 'like':
-            post.user_likes.add(user)
+            post.likes.add(user)
         else:
-            post.user_likes.remove(user)
+            post.likes.remove(user)
         post.save()
 
         response_data['result'] = 'updated'
-        response_data['users_like'] = post.users_like.all()
+        response_data['post_id'] = post.pk
+        response_data['users_like'] = list(post.likes.all().values_list('username', flat=True))
         response_data['post_likes'] = post.likes.count()
 
         return HttpResponse(json.dumps(response_data),
