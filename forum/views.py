@@ -201,20 +201,24 @@ def update_likes(request):
 
         post = Post.objects.get(id=post_id)
         user = request.user
+        if post.owner != user:
 
-        if post_action == 'like':
-            post.likes.add(user)
+            if post_action == 'like':
+                post.likes.add(user)
+            else:
+                post.likes.remove(user)
+            post.save()
+
+            response_data['result'] = 'updated'
+            response_data['post_id'] = post.pk
+            response_data['users_like'] = list(post.likes.all().values_list('username', flat=True))
+            response_data['post_likes'] = post.likes.count()
+
+            return HttpResponse(json.dumps(response_data),
+                                content_type='application/json')
         else:
-            post.likes.remove(user)
-        post.save()
-
-        response_data['result'] = 'updated'
-        response_data['post_id'] = post.pk
-        response_data['users_like'] = list(post.likes.all().values_list('username', flat=True))
-        response_data['post_likes'] = post.likes.count()
-
-        return HttpResponse(json.dumps(response_data),
-                            content_type='application/json')
+            return HttpResponse({'result': 'not updated'},
+                                content_type='application/json')
     else:
         return HttpResponse({'result': 'not updated'},
                             content_type='application/json')
