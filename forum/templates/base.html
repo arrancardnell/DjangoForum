@@ -7,6 +7,11 @@
         <link href="{% static  'css/forum.css' %}" type="text/css" rel="stylesheet" />
     </head>
     <body>
+    <div id="navigation">
+        {% if request.user.is_authenticated %}
+            <a href="{% url '' %}">Inbox</a>
+        {% endif %}
+    </div>
 	<div id="header">
 	    {% if request.user.is_authenticated %}
 	    Welcome {{ request.user.username }}
@@ -16,60 +21,60 @@
 	    <a href="{% url 'forum:login' %}">[Log-in]</a> |
 	    <a href="{% url 'forum:register' %}">[Sign-up]</a>
 	    {% endif %}
+    </div>
+    <div id="wrapper">
+        <div id="title">
+            <h1>League of Casuals!</h1>
         </div>
-        <div id="wrapper">
-            <div id="title">
-                <h1>League of Casuals!</h1>
+        <div id="jump_menu">
+            {% jump_menu %}
+        </div>
+        <div id="chat">
+            {% chat_messages %}
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="sidebar">
+            <h2>Forum Stat's</h2>
+            <div id="top_three_poster">
+                <h3>Today's Top 3 Posters</h3>
+                {% top_three_posters as top_posters %}
+                <ul class="top_three_posters">
+                    {% for poster in top_posters %}
+                        <li>{{ poster|capfirst }}</li>
+                    {% endfor %}
+                </ul>
             </div>
-            <div id="jump_menu">
-                {% jump_menu %}
+            <div id="top_three_topics">
+                <h3>Hot Topics</h3>
+                {% top_three_topics as top_topics %}
+                <ul class="top_three_topics">
+                    {% for topic in top_topics %}
+                        <li><a href="{% url 'forum:topic_detail' topic.section.slug topic.slug %}">{{ topic|capfirst }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
-            <div id="chat">
-                {% chat_messages %}
+        </div>
+        <div id="footer">
+            <div id="online_members">
+                {% online_members as online_members %}
+                    Members Online:
+                    {% for member in online_members %}
+                        {% if forloop.last %}
+                            {{ member }}
+                        {% else %}
+                            {{ member }},
+                        {% endif %}
+                    {% endfor %}
             </div>
-            <div id="content">
-                {% block content %}
-                {% endblock %}
+            <div id="board_statistics">
+                Total Members: {% total_members %} (Newest Member: {% newest_member %}) <br/>
+                Total Forum Posts: {% total_posts %}
             </div>
-            <div id="sidebar">
-                <h2>Forum Stat's</h2>
-                <div id="top_three_poster">
-                    <h3>Today's Top 3 Posters</h3>
-                    {% top_three_posters as top_posters %}
-                    <ul class="top_three_posters">
-                        {% for poster in top_posters %}
-                            <li>{{ poster|capfirst }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div id="top_three_topics">
-                    <h3>Hot Topics</h3>
-                    {% top_three_topics as top_topics %}
-                    <ul class="top_three_topics">
-                        {% for topic in top_topics %}
-                            <li><a href="{% url 'forum:topic_detail' topic.section.slug topic.slug %}">{{ topic|capfirst }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div id="footer">
-                <div id="online_members">
-                    {% online_members as online_members %}
-                        Members Online:
-                        {% for member in online_members %}
-                            {% if forloop.last %}
-                                {{ member }}
-                            {% else %}
-                                {{ member }},
-                            {% endif %}
-                        {% endfor %}
-                </div>
-                <div id="board_statistics">
-                    Total Members: {% total_members %} (Newest Member: {% newest_member %}) <br/>
-		            Total Forum Posts: {% total_posts %}
-                </div>
-            </div>
-        </div><!--wrapper-->
+        </div>
+    </div><!--wrapper-->
         <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
         <script src="{% static 'js/jquery.cookie.min.js' %}"></script>
         <script src="{% static 'js/check_csrf_token.js' %}"></script>

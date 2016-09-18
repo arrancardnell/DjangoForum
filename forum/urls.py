@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    # ajax_view
+    # ajax_views
     url(r'ajax/add_chat_message/$', views.add_chat_message, name='add_chat_message'),
     url(r'ajax/refresh_chat/$', views.refresh_chat, name='refresh_chat'),
     url(r'ajax/update_likes/$', views.update_likes, name='update_likes'),
@@ -31,6 +31,9 @@ urlpatterns = [
     url(r'^password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+/$)',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^password-reset/complete/$', auth_views.password_reset_complete, name='password_reset_complete'),
+
+    # private message views
+    url(r'^inbox/$', views.inbox, name='inbox'),
 
     # section views
     url(r'^$', views.section_list, name='section_list'),
