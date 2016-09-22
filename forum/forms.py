@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Post, PrivateConversation, PrivateMessage, Profile, Topic
+from .models import Post, Profile, Topic
 
 
 class AddPostForm(forms.ModelForm):
@@ -19,18 +19,6 @@ class AddTopicForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-
-
-class PrivateConversationForm(forms.ModelForm):
-    class Meta:
-        model = PrivateConversation
-        fields = ('recipient', 'title')
-
-
-class PrivateMessageForm(forms.ModelForm):
-    class Meta:
-        model = PrivateMessage
-        fields = ('content')
 
 
 class ProfileEditForm(forms.ModelForm):

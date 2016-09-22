@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Compose message{% endblock %}
+
+{% block content %}
+    <div id="compose_message">
+        <h1>Compose message</h1>
+        <form action="." method="post">
+            {{ private_conversation_form.as_p }}
+            {{ private_message_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Send"></p>
+        </form>
+    </div>
+{% endblock %}

@@ -9,7 +9,7 @@
     <body>
     <div id="navigation">
         {% if request.user.is_authenticated %}
-            <a href="{% url '' %}">Inbox</a>
+            <a href="{% url 'inbox:inbox' %}">Inbox</a>
         {% endif %}
     </div>
 	<div id="header">

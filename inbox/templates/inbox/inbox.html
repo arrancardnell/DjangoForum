@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block content %}
+    <div id="inbox">
+        <div id="conversationss">
+            {% for conversation in conversations %}
+                <p>{{ conversation }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="compose_message">
+        <a href="{% url 'inbox:compose_message' %}"><button>Compose</button></a>
+    </div>
+{% endblock %}

@@ -2,12 +2,12 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .forms import AddPostForm, AddTopicForm, LoginForm, PrivateConversationForm, PrivateMessageForm,\
-    ProfileEditForm, UserEditForm, UserRegistrationForm
+from .forms import AddPostForm, AddTopicForm, LoginForm, ProfileEditForm, \
+    UserEditForm, UserRegistrationForm
 from .models import Section, Topic, Post, Profile, Message
 
 import json
@@ -137,40 +137,6 @@ def register(request):
     return render(request,
                   'registration/register.html',
                   {'user_form': user_form})
-
-# inbox views
-@login_required
-def new_conversation(request):
-    if request.method == 'POST':
-        private_conversation_form = PrivateConversationForm(request.POST)
-        private_message_form = PrivateMessageForm(request.POST)
-
-        if private_conversation_form.is_valid() and private_message_form.is_valid():
-            # create new conversation
-            new_private_conversation = private_conversation_form.save(commit=False)
-            # assign a recipient
-            new_private_conversation(owner=request.user,
-                                     recipient=private_conversation_form.cleaned_data['recipient'],
-                                     title=private_conversation_form.cleaned_data['title'])
-            # save the form
-            new_private_conversation.save()
-
-            # add the new private message to the form
-            new_private_message = private_message_form.save(commit=False)
-            # link the message to the form
-            new_private_message(sender=request.user,
-                                conversation=new_private_conversation,
-                                content=private_message_form.cleaned_data['content'])
-            # save the message
-            new_private_message.save()
-            return redirect('forum:inbox')
-    else:
-        private_conversation_form = PrivateConversationForm
-        private_message_form = PrivateMessageForm
-    return render(request,
-                  'forum/new_conversation.html',
-                  {'private_conversation_form': private_conversation_form,
-                   'private_message_form': private_message_form})
 
 # login views
 def user_login(request):

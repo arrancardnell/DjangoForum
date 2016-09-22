@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-from . import views
+from forum import views
 
 urlpatterns = [
     # ajax_views
@@ -31,9 +31,6 @@ urlpatterns = [
     url(r'^password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+/$)',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^password-reset/complete/$', auth_views.password_reset_complete, name='password_reset_complete'),
-
-    # private message views
-    url(r'^inbox/$', views.inbox, name='inbox'),
 
     # section views
     url(r'^$', views.section_list, name='section_list'),

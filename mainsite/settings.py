@@ -44,6 +44,7 @@ REDIS_DB = 0
 
 INSTALLED_APPS = [
     'forum',
+    'inbox',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^forum/', include('forum.urls',
                             namespace='forum',
                             app_name='forum')),
+    url(r'^inbox/', include('inbox.urls',
+                            namespace='inbox',
+                            app_name='inbox')),
 ]
 
 if settings.DEBUG:
