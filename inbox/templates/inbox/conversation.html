@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block content %}
+    {{ conversation.title }}
+    {% for message in messages %}
+        <p>{{ message.content }}</p>
+    {% endfor %}
+{% endblock %}

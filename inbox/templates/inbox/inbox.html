@@ -6,7 +6,9 @@
     <div id="inbox">
         <div id="conversationss">
             {% for conversation in conversations %}
-                <p>{{ conversation }}</p>
+                <p>
+                    <a href="{% url 'inbox:view_conversation' conversation.id %}">{{ conversation.title }}</a>
+                </p>
             {% endfor %}
         </div>
     </div>

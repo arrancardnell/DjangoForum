@@ -54,3 +54,15 @@ def new_conversation(request):
                   'inbox/new_conversation.html',
                   {'private_conversation_form': private_conversation_form,
                    'private_message_form': private_message_form})
+
+def view_conversation(request, conversation_id):
+
+    conversation = PrivateConversation.objects.get(id=conversation_id)
+
+    if request.user == conversation.owner or request.user == conversation.recipient:
+        messages = PrivateMessage.objects.filter(conversation=conversation)
+
+        return render(request,
+                      'inbox/conversation.html',
+                      {'conversation': conversation,
+                       'messages': messages})
