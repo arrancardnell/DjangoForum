@@ -6,7 +6,8 @@ from django.core.cache import cache
 from django.core.cache.backends import locmem
 from django.db.models import Count, Max
 
-from ..models import Section, Topic, Post, Message
+from forum.models import Section, Topic, Post, Message
+from inbox.models import PrivateConversation
 
 import datetime
 import redis
@@ -77,8 +78,12 @@ def jump_menu(context):
         link = '/' + '/'.join(path_list[:index + 1]) + '/'   # /forum/general/welcome/
         title = None
 
-        if index == 1:  # sections will be at index 1
-            title = Section.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
+        if index == 1:
+            # convert conversation id to title
+            if 'inbox' in path_list:
+                title = PrivateConversation.objects.filter(id=jump_name).values_list('title', flat=True)
+            else:  # sections will be at index 1
+                title = Section.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
         if index == 2:  # topics will be at index 2
             title = Topic.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
 

@@ -37,6 +37,7 @@ def new_conversation(request):
             # save the form
             new_private_conversation.save()
 
+            # get the conversation object
             conversation = PrivateConversation.objects.filter(owner=request.user).latest()
 
             # add the new private message to the form
@@ -48,7 +49,7 @@ def new_conversation(request):
             new_private_message.save()
             return redirect('inbox:inbox')
     else:
-        private_conversation_form = PrivateConversationForm
+        private_conversation_form = PrivateConversationForm(request.user)
         private_message_form = PrivateMessageForm
     return render(request,
                   'inbox/new_conversation.html',
