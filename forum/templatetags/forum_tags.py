@@ -79,13 +79,15 @@ def jump_menu(context):
         title = None
 
         if index == 1:
+            # sections will be at index 1
+            title = Section.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
+        if index == 2:
             # convert conversation id to title
-            if 'inbox' in path_list:
+            if 'inbox' in path_list and 'conversation' in path_list:
                 title = PrivateConversation.objects.filter(id=jump_name).values_list('title', flat=True)
-            else:  # sections will be at index 1
-                title = Section.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
-        if index == 2:  # topics will be at index 2
-            title = Topic.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
+            else:
+                # topics will be at index 2
+                title = Topic.objects.filter(slug__exact=jump_name).values_list('title', flat=True)
 
         if title:
             jump_menu['jumps'][title[0]] = link

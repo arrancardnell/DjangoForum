@@ -24,7 +24,7 @@ def inbox(request):
 @login_required
 def new_conversation(request):
     if request.method == 'POST':
-        private_conversation_form = PrivateConversationForm(request.POST)
+        private_conversation_form = PrivateConversationForm(data=request.POST)
         private_message_form = PrivateMessageForm(request.POST)
 
         if private_conversation_form.is_valid() and private_message_form.is_valid():
@@ -49,7 +49,7 @@ def new_conversation(request):
             new_private_message.save()
             return redirect('inbox:inbox')
     else:
-        private_conversation_form = PrivateConversationForm(request.user)
+        private_conversation_form = PrivateConversationForm(user=request.user)
         private_message_form = PrivateMessageForm
     return render(request,
                   'inbox/new_conversation.html',

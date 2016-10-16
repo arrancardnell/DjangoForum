@@ -5,10 +5,11 @@ from inbox.models import PrivateConversation, PrivateMessage
 
 
 class PrivateConversationForm(forms.ModelForm):
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user=None, *args, **kwargs):
         # exclude the current user so they can't message themselves
         super(PrivateConversationForm, self).__init__(*args, **kwargs)
-        self.fields['recipient'].queryset = User.objects.exclude(username=user.username)
+        if user:
+            self.fields['recipient'].queryset = User.objects.exclude(username=user.username)
 
     class Meta:
         model = PrivateConversation
